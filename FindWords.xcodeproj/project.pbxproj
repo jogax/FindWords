@@ -244,10 +244,10 @@
 			isa = PBXGroup;
 			children = (
 				D0D0DAF72566C52B00EF08A8 /* Language.swift */,
-				D0D0DAF82566C52B00EF08A8 /* hu.swift */,
-				D0D0DAF92566C52B00EF08A8 /* ru.swift */,
 				D0D0DAFA2566C52B00EF08A8 /* en.swift */,
 				D0D0DAFB2566C52B00EF08A8 /* de.swift */,
+				D0D0DAF82566C52B00EF08A8 /* hu.swift */,
+				D0D0DAF92566C52B00EF08A8 /* ru.swift */,
 			);
 			path = Language;
 			sourceTree = "<group>";

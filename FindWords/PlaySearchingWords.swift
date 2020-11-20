@@ -58,7 +58,8 @@ class PlaySearchingWords: SKScene {
         playedGamesRealm = getRealm(type: .PlayedGameRealm)
         myDelegate = delegate
 //        showBackground(to: gameLayer)
-        showGamesMenu()
+//        showGamesMenu()
+        startNewGame()
     }
     
     var oldOrientation = false
@@ -80,44 +81,30 @@ class PlaySearchingWords: SKScene {
     var headerMpx: CGFloat = 0
 
 
-    @objc private func showGamesMenu() {
-        removeChildrenExceptTypes(from: gameLayer, types: [.Background])
-        let gameMenuTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.9),
-                                              LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.9),
-                                              PSize: nil, LSize: nil)
-        let gameMenuHeader = MyLabel(text: GV.language.getText(.tcSearchingWords), position: gameMenuTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
-        gameLayer.addChild(gameMenuHeader)
-//        addButton(to: gameLayer, text: GV.language.getText(.tcPlayGame), action: #selector(startNewGame))
-        let newGameTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.8),
-                                             LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.8),
-                                             PSize: nil,
-                                             LSize: nil)
-        let newGameTitle = MyLabel(text: GV.language.getText(.tcPlayGame), position: newGameTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
-        gameLayer.addChild(newGameTitle)
-        addShortButtonPL(to: gameLayer, text: "5x5", action: #selector(startNew5x5Game), col: 0, headerNode: newGameTitle, countCols: 6)
-        addShortButtonPL(to: gameLayer, text: "6x6", action: #selector(startNew6x6Game), col: 1, headerNode: newGameTitle, countCols: 6)
-        addShortButtonPL(to: gameLayer, text: "7x7", action: #selector(startNew7x7Game), col: 2, headerNode: newGameTitle, countCols: 6)
-        addShortButtonPL(to: gameLayer, text: "8x8", action: #selector(startNew8x8Game), col: 3, headerNode: newGameTitle, countCols: 6)
-        addShortButtonPL(to: gameLayer, text: "9x9", action: #selector(startNew9x9Game), col: 4, headerNode: newGameTitle, countCols: 6)
-        addShortButtonPL(to: gameLayer, text: "10x10", action: #selector(startNew10x10Game), col: 5, headerNode: newGameTitle, countCols: 6)
-
-//        let finishedGameTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.6),
-//                                                  LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.6),
-//                                                  PSize: nil,
-//                                                  LSize: nil)
-//        let finishedGameTitle = MyLabel(text: GV.language.getText(.tcFinishedGame), position: finishedGameTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
-//        gameLayer.addChild(finishedGameTitle)
-//        addShortButtonPL(to: gameLayer, text: "5x5", action: #selector(startFinished5x5Game), col: 0, headerNode: finishedGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "6x6", action: #selector(startFinished6x6Game), col: 1, headerNode: finishedGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "7x7", action: #selector(startFinished7x7Game), col: 2, headerNode: finishedGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "8x8", action: #selector(startFinished8x8Game), col: 3, headerNode: finishedGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "9x9", action: #selector(startFinished9x9Game), col: 4, headerNode: finishedGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "10x10", action: #selector(startFinished10x10Game), col: 5, headerNode: finishedGameTitle, countCols: 6)
+//    @objc private func showGamesMenu() {
+//        removeChildrenExceptTypes(from: gameLayer, types: [.Background])
+//        let gameMenuTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.9),
+//                                              LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.9),
+//                                              PSize: nil, LSize: nil)
+//        let gameMenuHeader = MyLabel(text: GV.language.getText(.tcSearchingWords), position: gameMenuTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
+//        gameLayer.addChild(gameMenuHeader)
+////        addButton(to: gameLayer, text: GV.language.getText(.tcPlayGame), action: #selector(startNewGame))
+//        let newGameTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.8),
+//                                             LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.8),
+//                                             PSize: nil,
+//                                             LSize: nil)
+//        let newGameTitle = MyLabel(text: GV.language.getText(.tcPlayGame), position: newGameTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
+//        gameLayer.addChild(newGameTitle)
+//        addShortButtonPL(to: gameLayer, text: "5x5", action: #selector(startNew5x5Game), col: 0, headerNode: newGameTitle, countCols: 6)
+//        addShortButtonPL(to: gameLayer, text: "6x6", action: #selector(startNew6x6Game), col: 1, headerNode: newGameTitle, countCols: 6)
+//        addShortButtonPL(to: gameLayer, text: "7x7", action: #selector(startNew7x7Game), col: 2, headerNode: newGameTitle, countCols: 6)
+//        addShortButtonPL(to: gameLayer, text: "8x8", action: #selector(startNew8x8Game), col: 3, headerNode: newGameTitle, countCols: 6)
+//        addShortButtonPL(to: gameLayer, text: "9x9", action: #selector(startNew9x9Game), col: 4, headerNode: newGameTitle, countCols: 6)
+//        addShortButtonPL(to: gameLayer, text: "10x10", action: #selector(startNew10x10Game), col: 5, headerNode: newGameTitle, countCols: 6)
 //
-//        addButton(to: gameLayer, text: GV.language.getText(.tcFinishedGame), action: #selector(startFinishedGame))
-        goBackButton = addButtonPL(to: gameLayer, text: GV.language.getText(.tcBack), action: #selector(goBack), line: GoBack)
+//        goBackButton = addButtonPL(to: gameLayer, text: GV.language.getText(.tcBack), action: #selector(goBack), line: GoBack)
 //        setGameMenuSizesAndPositions()
-    }
+//    }
     
     private func addShortButtonPL(to: SKScene, text: String, action: Selector, col: CGFloat, headerNode: SKNode, countCols: CGFloat) {
         let button = MyButton(fontName: GV.fontName, size: CGSize(width: 100, height: 100))
@@ -140,35 +127,35 @@ class PlaySearchingWords: SKScene {
 
     }
     
-    @objc private func startNew5x5Game() {
-        GV.size = 5
-        startNewGame(new: true)
-    }
-    
-    @objc private func startNew6x6Game() {
-        GV.size = 6
-        startNewGame(new: true)
-    }
-    
-    @objc private func startNew7x7Game() {
-        GV.size = 7
-        startNewGame(new: true)
-    }
-    
-    @objc private func startNew8x8Game() {
-        GV.size = 8
-        startNewGame(new: true)
-    }
-    
-    @objc private func startNew9x9Game() {
-        GV.size = 9
-        startNewGame(new: true)
-    }
-    
-    @objc private func startNew10x10Game() {
-        GV.size = 10
-        startNewGame(new: true)
-    }
+//    @objc private func startNew5x5Game() {
+//        GV.size = 5
+//        startNewGame(new: true)
+//    }
+//
+//    @objc private func startNew6x6Game() {
+//        GV.size = 6
+//        startNewGame(new: true)
+//    }
+//
+//    @objc private func startNew7x7Game() {
+//        GV.size = 7
+//        startNewGame(new: true)
+//    }
+//
+//    @objc private func startNew8x8Game() {
+//        GV.size = 8
+//        startNewGame(new: true)
+//    }
+//
+//    @objc private func startNew9x9Game() {
+//        GV.size = 9
+//        startNewGame(new: true)
+//    }
+//
+//    @objc private func startNew10x10Game() {
+//        GV.size = 10
+//        startNewGame(new: true)
+//    }
     
 //    @objc private func startFinished5x5Game() {
 //        GV.size = 5
@@ -269,10 +256,10 @@ class PlaySearchingWords: SKScene {
     }
     
     @objc private func createNewGame() {
-        startNewGame(new: true)
+        startNewGame()
     }
     
-    @objc private func startNewGame(new: Bool) {
+    @objc private func startNewGame() {
         GV.oldSize = GV.size
         myLabels.removeAll()
         allWords.removeAll()
@@ -281,48 +268,44 @@ class PlaySearchingWords: SKScene {
         let startGameNumber = 0
         var primary = GV.actLanguage + GV.innerSeparator + "*" + GV.innerSeparator + String(GV.size)
         playedGamesRealm = getRealm(type: .PlayedGameRealm)
-        let actGame = playedGamesRealm!.objects(PlayedGame.self).filter("finished = %d AND primary like %@", new ? false : true, primary).sorted(byKeyPath: "timeStamp", ascending: new ? false : true)
+        let actGame = playedGamesRealm!.objects(PlayedGame.self).filter("finished = %d AND primary like %@", false, primary).sorted(byKeyPath: "timeStamp", ascending: true)
         if actGame.count == 0 {
-            if new {
-                let finishedGames = playedGamesRealm!.objects(PlayedGame.self).filter("primary like %@ AND finished = true",
-                                                                                      primary).sorted(byKeyPath: "gameNumber", ascending: false)
-                if finishedGames.count == 0 {
-    //                GV.size = 8
-                    GV.gameNumber = startGameNumber
-                    primary = GV.actLanguage + GV.innerSeparator + String(GV.gameNumber) + GV.innerSeparator + String(GV.size)
-                } else {
-                    let lastPlayed = finishedGames.first!
-                    GV.gameNumber = lastPlayed.gameNumber + 1
-    //                GV.size = lastPlayed.gameSize
-                    if GV.gameNumber > maxGameNumber {
-    //                    GV.size += 1
-                        GV.gameNumber = 1
-                    }
-                    primary = GV.actLanguage + GV.innerSeparator + String(GV.gameNumber) + GV.innerSeparator + String(GV.size)
-                }
-                let origGame = gamesRealm.objects(Games.self).filter("primary = %@", primary)
-                if origGame.count > 0 {
-                    let newGame = PlayedGame()
-                    newGame.primary = primary
-                    newGame.gameSize = GV.size
-                    newGame.language = GV.actLanguage
-                    newGame.gameNumber = origGame.first!.gameNumber
-                    newGame.gameArray = origGame.first!.gameArray
-                    newGame.wordsToFind = origGame.first!.words
-                    newGame.finished = false
-                    try! playedGamesRealm!.safeWrite {
-                        playedGamesRealm!.add(newGame)
-                    }
-                }
+            let finishedGames = playedGamesRealm!.objects(PlayedGame.self).filter("primary like %@ AND finished = true",
+                                                                                  primary).sorted(byKeyPath: "gameNumber", ascending: false)
+            if finishedGames.count == 0 {
+//                GV.size = 8
+                GV.gameNumber = startGameNumber
+                primary = GV.actLanguage + GV.innerSeparator + String(GV.gameNumber) + GV.innerSeparator + String(GV.size)
             } else {
-                return
+                let lastPlayed = finishedGames.first!
+                GV.gameNumber = lastPlayed.gameNumber + 1
+//                GV.size = lastPlayed.gameSize
+                if GV.gameNumber > maxGameNumber {
+//                    GV.size += 1
+                    GV.gameNumber = 1
+                }
+                primary = GV.actLanguage + GV.innerSeparator + String(GV.gameNumber) + GV.innerSeparator + String(GV.size)
+            }
+            let origGame = gamesRealm.objects(Games.self).filter("primary = %@", primary)
+            if origGame.count > 0 {
+                let newGame = PlayedGame()
+                newGame.primary = primary
+                newGame.gameSize = GV.size
+                newGame.language = GV.actLanguage
+                newGame.gameNumber = origGame.first!.gameNumber
+                newGame.gameArray = origGame.first!.gameArray
+                newGame.wordsToFind = origGame.first!.words
+                newGame.finished = false
+                try! playedGamesRealm!.safeWrite {
+                    playedGamesRealm!.add(newGame)
+                }
             }
         } else {
-            if !new {
-                try! playedGamesRealm?.safeWrite {
-                    actGame.first!.myWords = ""
-                }
-            }
+//            if !new {
+//                try! playedGamesRealm?.safeWrite {
+//                    actGame.first!.myWords = ""
+//                }
+//            }
             GV.gameNumber = actGame.first!.gameNumber
         }
         playingGame()
@@ -664,7 +647,7 @@ class PlaySearchingWords: SKScene {
                                      LPos: CGPoint(x: gridLposX, y: GV.minSide * 0.89 - playingGrid!.size.height * 0.52),
                                      PSize: playingGrid!.size,
                                      LSize: playingGrid!.size)
-        let gameHeader = MyLabel(text: GV.language.getText(.tcSearchingWords), position: gameHeaderPosition, fontName: GV.headerFontName, fontSize: fontSize)
+        let gameHeader = MyLabel(text: GV.language.getText(.tcSearchWords, values: "\(GV.size)x\(GV.size)"), position: gameHeaderPosition, fontName: GV.headerFontName, fontSize: fontSize)
         gameLayer.addChild(gameHeader) // index 0
         playingGrid!.plPosSize = gridPosition
         playingGrid!.setActPosSize()
@@ -761,7 +744,7 @@ class PlaySearchingWords: SKScene {
 
     @objc private func goBackToMainMenu() {
 //        removeChildrenWithNames(from: gameLayer, names: actNames)
-        showGamesMenu()
+        goBack()
     }
 //    var mandatoryWordLabels = [MyWordLabel]()
     
