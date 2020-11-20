@@ -11,8 +11,6 @@
 		D07839202567E514005BBD28 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D078391E2567E514005BBD28 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D07839222567E535005BBD28 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07839212567E535005BBD28 /* Realm.framework */; };
 		D07839232567E535005BBD28 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D07839212567E535005BBD28 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D07839242567E53E005BBD28 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07839212567E535005BBD28 /* Realm.framework */; };
-		D07839252567E548005BBD28 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07839212567E535005BBD28 /* Realm.framework */; };
 		D07839272567E56F005BBD28 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07839262567E56F005BBD28 /* RealmSwift.framework */; };
 		D07839282567E56F005BBD28 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D07839262567E56F005BBD28 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D0D0DAEB2566C4A800EF08A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0D0DAE92566C4A800EF08A8 /* Main.storyboard */; };
@@ -182,9 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D07839252567E548005BBD28 /* Realm.framework in Frameworks */,
 				D07839272567E56F005BBD28 /* RealmSwift.framework in Frameworks */,
-				D07839242567E53E005BBD28 /* Realm.framework in Frameworks */,
 				D07839222567E535005BBD28 /* Realm.framework in Frameworks */,
 				D078391F2567E514005BBD28 /* Reachability.framework in Frameworks */,
 			);
