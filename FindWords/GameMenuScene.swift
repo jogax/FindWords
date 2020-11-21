@@ -360,6 +360,7 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
         }
         button.myType = .MyButton
         button.setActPosSize()
+//        button.drawBorder()
         button.name = name
         to.addChild(button)
     }

@@ -610,18 +610,18 @@ class PlaySearchingWords: SKScene {
 //            }
 //            setPosItionsAndSizesOfNodesWithActNames(layer: gameLayer, objects: objects)
 //        } else {
-////            let yPos1: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.10 : 0.10) // GameHeader
-////            let yPos2: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.32 : 0.90) // GoBack
-////            let yPos3: CGFloat = GV.actHeight * 0.5 // Grid
-////            let yPos4: CGFloat = GV.actHeight * 0.5 // Grid
-////
-////            let frames: [CGRect] = [
-////                CGRect(x: GV.actWidth * 0.5, y: yPos1, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GameHeader
-////                CGRect(x: GV.actWidth * 0.5, y: yPos2, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GoBack
-////                CGRect(x: GV.actWidth - gridSize!.width * 0.6, y: yPos3, width: gridSize!.width, height: gridSize!.height),  // Grid
-////                CGRect(x: GV.actWidth * 0.1, y: yPos4, width: gridSize!.width, height: gridSize!.height),  // Grid
-////            ]
-////            setPosItionsAndSizesOfNodesWithActNames(layer: gameLayer, objects: objects)
+//            let yPos1: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.10 : 0.10) // GameHeader
+//            let yPos2: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.32 : 0.90) // GoBack
+//            let yPos3: CGFloat = GV.actHeight * 0.5 // Grid
+//            let yPos4: CGFloat = GV.actHeight * 0.5 // Grid
+//
+//            let frames: [CGRect] = [
+//                CGRect(x: GV.actWidth * 0.5, y: yPos1, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GameHeader
+//                CGRect(x: GV.actWidth * 0.5, y: yPos2, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GoBack
+//                CGRect(x: GV.actWidth - gridSize!.width * 0.6, y: yPos3, width: gridSize!.width, height: gridSize!.height),  // Grid
+//                CGRect(x: GV.actWidth * 0.1, y: yPos4, width: gridSize!.width, height: gridSize!.height),  // Grid
+//            ]
+//            setPosItionsAndSizesOfNodesWithActNames(layer: gameLayer, objects: objects)
 //
 //        }
 //    }
@@ -687,6 +687,7 @@ class PlaySearchingWords: SKScene {
             firstWordPositionYL = ((fixWordsHeader.plPosSize?.LPos.y)!) - GV.maxSide * 0.04
             fillMandatoryWords()
             setGameArrayToActualState()
+//            goBackButton.drawBorder()
 //            let test = gameLayer
             
         }

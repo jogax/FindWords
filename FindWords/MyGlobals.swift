@@ -32,6 +32,12 @@ public enum TouchType: Int {
     case Began = 0, Moved, Ended
 }
 
+public enum GradientDirection {
+    case Up
+    case Left
+    case UpLeft
+    case UpRight
+}
 
 
 struct GV {

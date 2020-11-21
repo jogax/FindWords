@@ -777,16 +777,9 @@ extension UIColor {
     static public func greenAppleColor()->UIColor {
         return UIColor(red: 0x52/0xff, green: 0xD0/0xff, blue: 0x17/0xff, alpha: 1.0)
     }
-//    var rgba:(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-//        var red: CGFloat = 0
-//        var green: CGFloat = 0
-//        var blue: CGFloat = 0
-//        var alpha: CGFloat = 0
-//        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-//
-//        return (red, green, blue, alpha)
-//    }
-//
+    static public func gold()->UIColor {
+        return UIColor(red: 255/255, green: 180/255, blue: 4/255, alpha: 1.0)
+    }
     convenience init(red: Int, green: Int, blue: Int, a: CGFloat = 1.0) {
         self.init(
             red: CGFloat(red) / 255.0,
@@ -1315,6 +1308,40 @@ extension UIWindow {
         }
     }
 }
+
+extension SKSpriteNode {
+
+    func drawBorder() {
+        let color:UIColor = .darkGray
+        let width: CGFloat = 3
+        for layer in self.children {
+        
+            if layer.name == "border" {
+            
+                layer.removeFromParent()
+            
+            }
+        
+        }
+    
+        let lineWidth = width
+        let rectWidth:CGFloat! = GV.deviceOrientation == .Portrait ? plPosSize?.PSize?.width : plPosSize?.LSize?.width
+        let rectHeight: CGFloat! = GV.deviceOrientation == .Portrait ? plPosSize?.PSize?.height : plPosSize?.LSize?.height
+    
+        let shapeNode = SKShapeNode(rect: CGRect(x: -rectWidth/2, y: -rectHeight/2, width: rectWidth, height: rectHeight), cornerRadius: 10)
+        shapeNode.fillColor = .clear
+        shapeNode.strokeColor = color
+        shapeNode.lineWidth = lineWidth
+        shapeNode.name = "border"
+        shapeNode.zPosition = 1001
+        self.addChild(shapeNode)
+    
+        self.zPosition = 1000
+
+    }
+
+}
+
 
 
 //extension GCHelper {

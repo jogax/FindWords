@@ -54,10 +54,11 @@ class MyButton: SKSpriteNode {
         self.label.fontSize = size.height * 0.5
         label.zPosition = self.zPosition + 1
         addChild(self.label)
-        let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.clear, size: defaultTexture.size())
-        bugFixLayerNode.position = self.position
-        addChild(bugFixLayerNode)
+//        let bugFixLayerNode = SKSpriteNode(texture: nil, color: UIColor.clear, size: defaultTexture.size())
+//        bugFixLayerNode.position = self.position
+//        addChild(bugFixLayerNode)
         self.myType = .MyLabel
+        self.size = self.rect.size
         setActPosSize()
     }
     
@@ -126,7 +127,8 @@ class MyButton: SKSpriteNode {
         self.label.text = title
         self.label.fontSize = size
         self.label.fontName = name
-        self.label.fontColor = .black
+//        self.label.fontColor = .black
+        self.label.fontColor = .white
     }
     
     var disabledTexture: SKTexture?
@@ -193,38 +195,35 @@ class MyButton: SKSpriteNode {
     }
     
     private func myTexture() -> (defaultTexture: SKTexture, selectedTexture: SKTexture, disabledTexture: SKTexture?) {
-//        func drawLinearGradient(
-//            context: CGContext, rect: CGRect, startColor: CGColor, endColor: CGColor) {
-//            // 1
-//            let colorSpace = CGColorSpaceCreateDeviceRGB()
-//
-//            // 2
-//            let colorLocations: [CGFloat] = [0.0, 1.0]
-//
-//            // 3
-//            let colors: CFArray = [startColor, endColor] as CFArray
-//
-//            // 4
-////            let gradient = CGGradient(
-////                colorsSpace: colorSpace, colors: colors, locations: colorLocations)!
-//
-//            // More to come...
-//        }
-        func drawGlossAndGradient(
+        func drawLinearGradient(
             context: CGContext, rect: CGRect, startColor: CGColor, endColor: CGColor) {
+            // 1
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+
+            // 2
+            let colorLocations: [CGFloat] = [0.0, 1.0]
+
+            // 3
+            let colors: CFArray = [startColor, endColor] as CFArray
+
+            // 4
+            let gradient = CGGradient(
+                colorsSpace: colorSpace, colors: colors, locations: colorLocations)!
+
+            // More to come...
+        }
+        func drawGlossAndGradient(context: CGContext, rect: CGRect, startColor: CGColor, endColor: CGColor) {
             
             // 1
-//            drawLinearGradient(
-//                context: context, rect: rect, startColor: startColor, endColor: endColor)
+            drawLinearGradient(context: context, rect: rect, startColor: startColor, endColor: endColor)
             
-//            let glossColor1 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: /*0.35*/ 0.6)
-//            let glossColor2 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
-//
-//            let topHalf = CGRect(origin: rect.origin,
-//                                 size: CGSize(width: rect.width, height: rect.height/2))
+            let glossColor1 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: /*0.35*/ 0.6)
+            let glossColor2 = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1)
+
+            let topHalf = CGRect(origin: rect.origin,
+                                 size: CGSize(width: rect.width, height: rect.height/2))
             
-//            drawLinearGradient(context: context, rect: topHalf,
-//                               startColor: glossColor1.cgColor, endColor: glossColor2.cgColor)
+            drawLinearGradient(context: context, rect: topHalf, startColor: glossColor1.cgColor, endColor: glossColor2.cgColor)
         }
         
         func createRoundedRectPath(for rect: CGRect, radius: CGFloat)->CGMutablePath {
@@ -269,18 +268,19 @@ class MyButton: SKSpriteNode {
         
         
         
-        let outerColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+        let outerColor = UIColor.lightGray //UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 1.0)
+//        let outerColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
         let shadowColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.5)
         
         let outerMargin: CGFloat = 5.0
         let outerRect = rect.insetBy(dx: outerMargin, dy: outerMargin)
-        let outerPath = createRoundedRectPath(for: outerRect, radius: GV.onIpad ? 8 : 8)
+        let outerPath = createRoundedRectPath(for: outerRect, radius: GV.onIpad ? 12 : 8)
         
         //        if state != .highlighted {
         context.saveGState()
         context.setFillColor(outerColor.cgColor)
         context.setShadow(
-            offset: CGSize(width: 0, height: 2), blur: 3.0, color: shadowColor.cgColor)
+            offset: CGSize(width: 0, height: 0), blur: 3.0, color: shadowColor.cgColor)
         context.addPath(outerPath)
         context.fillPath()
         context.restoreGState()
@@ -313,10 +313,10 @@ class MyButton: SKSpriteNode {
         context.restoreGState()
         
         UIGraphicsBeginImageContext(size)
-        //        let lineWidth: CGFloat = 5.0
-        //        let context: CGContext = UIGraphicsGetCurrentContext()!
-        //        context.setStrokeColor(UIColor.red.cgColor)
-        //        context.setLineWidth(lineWidth)
+        let lineWidth: CGFloat = 5.0
+//        let context: CGContext = UIGraphicsGetCurrentContext()!
+        context.setStrokeColor(UIColor.red.cgColor)
+        context.setLineWidth(lineWidth)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         let texture = SKTexture(image: image!)
         return (defaultTexture: texture, selectedTexture: texture, disabledTexture: texture)
