@@ -344,19 +344,23 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
 //    }
     private func addButtonPL(to: SKNode, text: String, action: Selector, line: CGFloat, buttonWidth: CGFloat=0.6, name: String? = nil) {
         let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
+        let texture = SKTexture(imageNamed: "Blue Button.png")
+        let heigthMultiplier = texture.size().height / texture.size().width
+        let myWidth = GV.minSide * buttonWidth
+        let myHeight = myWidth * heigthMultiplier
         button.zPosition = self.zPosition + 20
         button.setButtonLabel(title: text, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
         button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)
         if line == GoBack {
             button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: (GV.maxSide * 0.2)),
                                          LPos: CGPoint(x: GV.maxSide * 0.5, y: (GV.minSide * 0.2)),
-                                         PSize: CGSize(width: GV.minSide * buttonWidth, height: GV.maxSide * 0.05),
-                                         LSize: CGSize(width: GV.minSide * buttonWidth, height: GV.maxSide * 0.05))
+                                         PSize: CGSize(width: myWidth, height: myHeight),
+                                         LSize: CGSize(width: myWidth, height: myHeight))
         } else {
             button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: (GV.maxSide * 0.8) - (line * GV.maxSide * 0.06)),
                                          LPos: CGPoint(x: GV.maxSide * 0.5, y: (GV.minSide * 0.8) - (line * GV.maxSide * 0.06)),
-                                         PSize: CGSize(width: GV.minSide * buttonWidth, height: GV.maxSide * 0.05),
-                                         LSize: CGSize(width: GV.minSide * buttonWidth, height: GV.maxSide * 0.05))
+                                         PSize: CGSize(width: myWidth, height: myHeight),
+                                         LSize: CGSize(width: myWidth, height: myHeight))
         }
         button.myType = .MyButton
         button.setActPosSize()
