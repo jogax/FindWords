@@ -40,7 +40,7 @@ class MyButton: SKSpriteNode {
     init(fontName: String, size: CGSize) {
 //        MyLabel.countInstances += 1
         self.rect = CGRect(origin: CGPoint(x:0, y:0), size: size)
-        self.defaultTexture = SKTexture(imageNamed: "Blue Button.png")
+        self.defaultTexture = SKTexture(imageNamed: "Rosa Button.png")
         self.selectedTexture = self.defaultTexture
         self.disabledTexture = self.defaultTexture
         self.label = SKLabelNode(fontNamed: fontName)

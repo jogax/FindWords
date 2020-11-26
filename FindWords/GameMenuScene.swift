@@ -344,10 +344,12 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
 //    }
     private func addButtonPL(to: SKNode, text: String, action: Selector, line: CGFloat, buttonWidth: CGFloat=0.6, name: String? = nil) {
         let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
-        let texture = SKTexture(imageNamed: "Blue Button.png")
-        let heigthMultiplier = texture.size().height / texture.size().width
-        let myWidth = GV.minSide * buttonWidth
-        let myHeight = myWidth * heigthMultiplier
+//        let texture = SKTexture(imageNamed: "Rosa Button.png")
+//        let heigthMultiplier = texture.size().height / texture.size().width
+//        let myWidth = GV.minSide * buttonWidth
+//        let myHeight = myWidth * heigthMultiplier
+        let myWidth = button.size.width
+        let myHeight = button.size.height
         button.zPosition = self.zPosition + 20
         button.setButtonLabel(title: text, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
         button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0722CFC256FCB4600B53468 /* Rosa Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D0722CFB256FCB4600B53468 /* Rosa Button.png */; };
+		D0722D02256FEAA900B53468 /* GradientNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0722D01256FEAA900B53468 /* GradientNode.swift */; };
 		D078391F2567E514005BBD28 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078391E2567E514005BBD28 /* Reachability.framework */; };
 		D07839202567E514005BBD28 /* Reachability.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D078391E2567E514005BBD28 /* Reachability.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D07839222567E535005BBD28 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07839212567E535005BBD28 /* Realm.framework */; };
@@ -102,6 +104,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D0722CFB256FCB4600B53468 /* Rosa Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rosa Button.png"; sourceTree = "<group>"; };
+		D0722D01256FEAA900B53468 /* GradientNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNode.swift; sourceTree = "<group>"; };
 		D078391E2567E514005BBD28 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = ../_Realm/Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		D07839212567E535005BBD28 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../_Realm/Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		D07839262567E56F005BBD28 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../_Realm/Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 				D0D0DB002566C52B00EF08A8 /* AppDelegate.swift */,
 				D0D0DB042566C52B00EF08A8 /* Extensions.swift */,
 				D0D0DB162566C52C00EF08A8 /* GameBoardItem.swift */,
+				D0722D01256FEAA900B53468 /* GradientNode.swift */,
 				D0D0DAFC2566C52B00EF08A8 /* GameMenuScene.swift */,
 				D0F8E608256D62D8001C5EB7 /* Blue Button.png */,
 				D0D0DB132566C52C00EF08A8 /* GameViewController.swift */,
@@ -280,6 +285,7 @@
 		D0D0DB112566C52C00EF08A8 /* Pic */ = {
 			isa = PBXGroup;
 			children = (
+				D0722CFB256FCB4600B53468 /* Rosa Button.png */,
 				D0F8E606256D4B3F001C5EB7 /* Red Button.png */,
 				D0D0DB642566C8CB00EF08A8 /* AppIcon.png */,
 				D0D0DB522566C8C900EF08A8 /* background.png */,
@@ -440,6 +446,7 @@
 				D0D0DB392566C52C00EF08A8 /* OKWord.mp3 in Resources */,
 				D0D0DB792566C8CB00EF08A8 /* LandscapeBG.png in Resources */,
 				D0D0DAED2566C4A900EF08A8 /* Assets.xcassets in Resources */,
+				D0722CFC256FCB4600B53468 /* Rosa Button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +474,7 @@
 				D0D0DB292566C52C00EF08A8 /* Grid.swift in Sources */,
 				D0D0DB312566C52C00EF08A8 /* NewWordListModel.swift in Sources */,
 				D0D0DB342566C52C00EF08A8 /* GameViewController.swift in Sources */,
+				D0722D02256FEAA900B53468 /* GradientNode.swift in Sources */,
 				D0D0DB322566C52C00EF08A8 /* MyAlertController.swift in Sources */,
 				D0D0DB212566C52C00EF08A8 /* MyFoundedWord.swift in Sources */,
 				D0D0DB3A2566C52C00EF08A8 /* MyRandom.swift in Sources */,
