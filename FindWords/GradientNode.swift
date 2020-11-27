@@ -57,7 +57,8 @@ class BDGradientNode : SKSpriteNode {
     /// (Gamut and Sweep) The center of the sweeping gradient in the coordinate system of (0.0, 0.0) to (1.0, 1.0), where (0.0, 0.0) is the bottom left corner of the texture and (1.0, 1.0) is the top right. Default is (0.5, 0.5).
     var center = CGPoint(x: 0.5, y: 0.5) {
         didSet {
-            u_center.floatVector2Value = GLKVector2Make(Float(center.x), Float(center.y))
+//            u_center.floatVector2Value = GLKVector2Make(Float(center.x), Float(center.y))
+            u_center.vectorFloat2Value = vector2(Float(center.x), Float(center.y)) // GLKVector2Make(Float(center.x), Float(center.y))
         }
     }
     
@@ -87,16 +88,18 @@ class BDGradientNode : SKSpriteNode {
     /// (Linear) The point from which the gradient will start. If this is not nil then startPoint must also have a value. If it is nil then it will default to the bottom center of the texture (0.5, 1.0).
     var endPoint = CGPoint(x: 0.5, y: 1.0) {
         didSet {
-            u_endPoint.floatVector2Value = GLKVector2Make(Float(endPoint.x), Float(endPoint.y))
+//            u_endPoint.floatVector2Value = GLKVector2Make(Float(endPoint.x), Float(endPoint.y))
+            u_endPoint.vectorFloat2Value = vector2(Float(endPoint.x), Float(endPoint.y))// GLKVector2Make(Float(endPoint.x), Float(endPoint.y))
             updateLocations()
         }
     }
     
-    private let u_firstCenter = SKUniform(name: "u_firstCenter", float: GLKVector2Make(0.5, 0.5))
+    private let u_firstCenter = SKUniform(name: "u_firstCenter", vectorFloat2: vector2(0.5, 0.5))
     /// (Radial) The center of the first circle in the coordinate system of (0.0, 0.0) to (1.0, 1.0), where (0.0, 0.0) is the bottom left corner of the texture and (1.0, 1.0) is the top right. Default is (0.5, 0.5).
     var firstCenter = CGPoint(x: 0.5, y: 0.5) {
         didSet {
-            u_firstCenter.floatVector2Value = GLKVector2Make(Float(firstCenter.x), Float(firstCenter.y))
+//            u_firstCenter.floatVector2Value = GLKVector2Make(Float(firstCenter.x), Float(firstCenter.y))
+            u_firstCenter.vectorFloat2Value = vector2(Float(firstCenter.x), Float(firstCenter.y))
         }
     }
     
@@ -137,7 +140,8 @@ class BDGradientNode : SKSpriteNode {
     /// (Radial Gradient) The center of the second circle in the coordinate system of (0.0, 0.0) to (1.0, 1.0), where (0.0, 0.0) is the bottom left corner of the sprite and (1.0, 1.0) is the top right. Default is (0.5, 0.5).
     var secondCenter = CGPoint(x: 0.5, y: 0.5) {
         didSet {
-            u_secondCenter.floatVector2Value = GLKVector2Make(Float(secondCenter.x), Float(secondCenter.y))
+//            u_secondCenter.floatVector2Value = GLKVector2Make(Float(secondCenter.x), Float(secondCenter.y))
+            u_secondCenter.vectorFloat2Value = vector2(Float(secondCenter.x), Float(secondCenter.y))
         }
     }
     
@@ -161,7 +165,7 @@ class BDGradientNode : SKSpriteNode {
     /// (Linear) The point from which the gradient will start. If this is not nil then endPoint must also have a value. If it is nil then it will default to the bottom center of the texture (0.5, 0.0).
     var startPoint = CGPoint(x: 0.5, y: 0.0) {
         didSet {
-            u_startPoint.floatVector2Value = GLKVector2Make(Float(startPoint.x), Float(startPoint.y))
+            u_startPoint.vectorFloat2Value = vector2(Float(startPoint.x), Float(startPoint.y))
             updateLocations()
         }
     }
@@ -904,9 +908,9 @@ class BDGradientNode : SKSpriteNode {
     */
     private func colorToRGBAComponentFloatArray (color: UIColor) -> [Float] {
         
-        var red = CGFloat(0.0), green = CGFloat(0.0), blue = CGFloat(0.0), alpha = CGFloat(0.0)
+        let red = CGFloat(0.0), green = CGFloat(0.0), blue = CGFloat(0.0), alpha = CGFloat(0.0)
         
-        let components = color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+//        let components = color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         
         return [Float(red), Float(green), Float(blue), Float(alpha)]
     }
@@ -954,8 +958,8 @@ class BDGradientNode : SKSpriteNode {
 //                for var i = 0; i < colors.count; i++ {
                 for i in 0..<colors.count {
                     let colorArray = colorToRGBAComponentFloatArray(color: colors[i])
-                    let vector4 = GLKVector4Make(colorArray[0], colorArray[1], colorArray[2], colorArray[3])
-                    u_colors[i].floatVector4Value = vector4
+//                    let vector4 = vector4(colorArray[0], colorArray[1], colorArray[2], colorArray[3])
+                    u_colors[i].vectorFloat4Value = vector4(colorArray[0], colorArray[1], colorArray[2], colorArray[3])
                 }
             }
         }
@@ -993,8 +997,8 @@ class BDGradientNode : SKSpriteNode {
                 let vector = CGPoint(x: endPoint.x - startPoint.x, y: endPoint.y - startPoint.y)
 //                for var i = 0; i < u_locations.count; i++ {
                 for i in 0..<u_locations.count {
-                    let vector2 = GLKVector2Make(Float(startPoint.x) + locations![i] * Float(vector.x), Float(startPoint.y) + locations![i] * Float(vector.y))
-                    u_locations[i].floatVector2Value = vector2
+//                    let vector2 = vector2(Float(startPoint.x) + locations![i] * Float(vector.x), Float(startPoint.y) + locations![i] * Float(vector.y))
+                    u_locations[i].vectorFloat2Value = vector2(Float(startPoint.x) + locations![i] * Float(vector.x), Float(startPoint.y) + locations![i] * Float(vector.y))
                 }
                 
             } else if gradientType == "radial" || gradientType == "sweep" {
