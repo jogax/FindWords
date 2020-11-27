@@ -44,7 +44,8 @@ class MyButton: SKSpriteNode {
         self.selectedTexture = self.defaultTexture
         self.disabledTexture = self.defaultTexture
         self.label = SKLabelNode(fontNamed: fontName)
-        super.init(texture: defaultTexture, color: UIColor.white, size: defaultTexture.size())
+        let buttonImage = DrawImages.drawButton(size: CGSize(width: 500, height: 200))
+        super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         isUserInteractionEnabled = true
         (defaultTexture, selectedTexture, disabledTexture) = myTexture()
         let textureX = defaultTexture
@@ -72,7 +73,7 @@ class MyButton: SKSpriteNode {
         self.disabledTexture = disabledTexture
         self.label = SKLabelNode(fontNamed: "Helvetica");
         
-        super.init(texture: defaultTexture, color: UIColor.white, size: defaultTexture.size())
+        super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         isUserInteractionEnabled = true
         
         //Creating and adding a blank label, centered on the button
@@ -128,7 +129,7 @@ class MyButton: SKSpriteNode {
         self.label.fontSize = size
         self.label.fontName = name
 //        self.label.fontColor = .black
-        self.label.fontColor = .white
+        self.label.fontColor = .black
     }
     
     var disabledTexture: SKTexture?
@@ -268,13 +269,13 @@ class MyButton: SKSpriteNode {
         
         
         
-        let outerColor = UIColor.lightGray //UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 1.0)
-//        let outerColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
+//        let outerColor = UIColor.lightGray //UIColor(red: 110/255, green: 110/255, blue: 110/255, alpha: 1.0)
+        let outerColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
         let shadowColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 0.5)
         
         let outerMargin: CGFloat = 5.0
         let outerRect = rect.insetBy(dx: outerMargin, dy: outerMargin)
-        let outerPath = createRoundedRectPath(for: outerRect, radius: GV.onIpad ? 12 : 8)
+        let outerPath = createRoundedRectPath(for: outerRect, radius: GV.onIpad ? 16 : 8)
         
         //        if state != .highlighted {
         context.saveGState()
