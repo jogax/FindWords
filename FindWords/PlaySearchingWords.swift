@@ -186,9 +186,10 @@ class PlaySearchingWords: SKScene {
 //        GV.size = 10
 //        startNewGame(new: false)
 //    }
-//    
+//
+    
     private func addButtonPL(to: SKNode, text: String, action: Selector, line: CGFloat)->MyButton {
-        let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
+        let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.minSide * 0.4, height: GV.maxSide * 0.05))
         button.zPosition = self.zPosition + 20
         button.setButtonLabel(title: text, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
         button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)
@@ -424,10 +425,10 @@ class PlaySearchingWords: SKScene {
                 gameLayer.addChild(cell)
                 cell.setStatus(toStatus: .WholeWord)
 //                let path = UIBezierPath()
-                if let particles = SKEmitterNode(fileNamed: "MyFireParticle.sks") {
-                    particles.particleColor = .red
-                    cell.addChild(particles)
-                }
+//                if let particles = SKEmitterNode(fileNamed: "MyFireParticle.sks") {
+//                    particles.particleColor = .red
+//                    cell.addChild(particles)
+//                }
                 let toPosition = playingGrid!.gridPosition(col: cell.col, row: cell.row) + playingGrid!.position
 //                path.move(to: toPosition)
 //                path.addLine(to: CGPoint(x: firstPositionX + CGFloat(index) * newBlockSize * 1.2, y: fixPositionY))

@@ -37,17 +37,17 @@ class MyButton: SKSpriteNode {
         fatalError("NSCoding not supported")
     }
     
+
     init(fontName: String, size: CGSize) {
 //        MyLabel.countInstances += 1
         self.rect = CGRect(origin: CGPoint(x:0, y:0), size: size)
-        self.defaultTexture = SKTexture()
+        self.defaultTexture = DrawImages.drawButton(size: CGSize(width: size.width, height: size.height), outerColor: .blue, innerColor: .gold())
         self.selectedTexture = self.defaultTexture
         self.disabledTexture = self.defaultTexture
         self.label = SKLabelNode(fontNamed: fontName)
-        let buttonImage = DrawImages.drawButton(size: CGSize(width: 500, height: 200))
         super.init(texture: defaultTexture, color: UIColor.black, size: defaultTexture.size())
         isUserInteractionEnabled = true
-        (defaultTexture, selectedTexture, disabledTexture) = myTexture()
+//        (defaultTexture, selectedTexture, disabledTexture) = myTexture()
         let textureX = defaultTexture
         self.texture = textureX
         self.label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center;

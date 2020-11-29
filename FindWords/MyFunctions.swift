@@ -339,9 +339,11 @@ public func removeChildrenWithNames(from: SKNode, names: [Int:String]) {
 
 func removeChildrenWithTypes(from: SKNode, types: [SKNodeSubclassType]) {
     for child in from.children {
-        if types.contains(child.myType!) {
-            child.removeAllStoredPropertys()
-            child.removeFromParent()
+        if child.myType != nil {
+            if types.contains(child.myType!) {
+                child.removeAllStoredPropertys()
+                child.removeFromParent()
+            }
         }
     }
 }

@@ -161,7 +161,7 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
 //        menuLayer!.size = self.size
         menuLayer!.setPosAndSizeForAllChildren()
         setBackground(to: menuLayer!)
-        print("in function handleOrientation: \(getDeviceOrientation())")
+//        print("in function handleOrientation: \(getDeviceOrientation())")
  //        menuLayer!.backgroundColor = .red
 //        menuLayer!.position = CGPoint(x: GV.actWidth / 2, y: GV.actHeight / 2)
         scaleMode = .aspectFill //.aspectFit //.fill //.resizeFill
@@ -343,7 +343,7 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
 //        to.addChild(button)
 //    }
     private func addButtonPL(to: SKNode, text: String, action: Selector, line: CGFloat, buttonWidth: CGFloat=0.6, name: String? = nil) {
-        let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
+        let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.minSide * buttonWidth, height: GV.maxSide * 0.08))
         button.zPosition = self.zPosition + 20
         button.setButtonLabel(title: text, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
         button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)
