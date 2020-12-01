@@ -871,7 +871,23 @@ extension UIImage {
      destCGImage = nil
     return resizedImage
     }
-
+    
+    func roundedImageWithBorder(width: CGFloat, color: UIColor, radius: CGFloat) -> UIImage? {
+        let square = CGSize(width: size.width + 2 * width, height: size.height)
+        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: square))
+        imageView.contentMode = .center
+        imageView.image = self
+        imageView.layer.cornerRadius = radius
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = width
+        imageView.layer.borderColor = color.cgColor
+        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        imageView.layer.render(in: context)
+        let result = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return result
+    }
 }
 
 extension Data {

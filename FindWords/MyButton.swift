@@ -41,7 +41,7 @@ class MyButton: SKSpriteNode {
     init(fontName: String, size: CGSize) {
 //        MyLabel.countInstances += 1
         self.rect = CGRect(origin: CGPoint(x:0, y:0), size: size)
-        self.defaultTexture = DrawImages.drawButton(size: CGSize(width: size.width, height: size.height), outerColor: .blue, innerColor: .gold())
+        self.defaultTexture = DrawImages.drawButton(size: CGSize(width: size.width, height: size.height), outerColor: .blue, innerColor: .lightGray)
         self.selectedTexture = self.defaultTexture
         self.disabledTexture = self.defaultTexture
         self.label = SKLabelNode(fontNamed: fontName)
@@ -128,8 +128,7 @@ class MyButton: SKSpriteNode {
         self.label.text = title
         self.label.fontSize = size
         self.label.fontName = name
-//        self.label.fontColor = .black
-        self.label.fontColor = .black
+        self.label.fontColor = .white
     }
     
     var disabledTexture: SKTexture?

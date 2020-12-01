@@ -80,31 +80,6 @@ class PlaySearchingWords: SKScene {
     
     var headerMpx: CGFloat = 0
 
-
-//    @objc private func showGamesMenu() {
-//        removeChildrenExceptTypes(from: gameLayer, types: [.Background])
-//        let gameMenuTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.9),
-//                                              LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.9),
-//                                              PSize: nil, LSize: nil)
-//        let gameMenuHeader = MyLabel(text: GV.language.getText(.tcSearchingWords), position: gameMenuTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
-//        gameLayer.addChild(gameMenuHeader)
-////        addButton(to: gameLayer, text: GV.language.getText(.tcPlayGame), action: #selector(startNewGame))
-//        let newGameTitlePosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.8),
-//                                             LPos: CGPoint(x: GV.maxSide * 0.5, y: GV.minSide * 0.8),
-//                                             PSize: nil,
-//                                             LSize: nil)
-//        let newGameTitle = MyLabel(text: GV.language.getText(.tcPlayGame), position: newGameTitlePosition, fontName: GV.headerFontName, fontSize: GV.minSide * headerMpx)
-//        gameLayer.addChild(newGameTitle)
-//        addShortButtonPL(to: gameLayer, text: "5x5", action: #selector(startNew5x5Game), col: 0, headerNode: newGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "6x6", action: #selector(startNew6x6Game), col: 1, headerNode: newGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "7x7", action: #selector(startNew7x7Game), col: 2, headerNode: newGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "8x8", action: #selector(startNew8x8Game), col: 3, headerNode: newGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "9x9", action: #selector(startNew9x9Game), col: 4, headerNode: newGameTitle, countCols: 6)
-//        addShortButtonPL(to: gameLayer, text: "10x10", action: #selector(startNew10x10Game), col: 5, headerNode: newGameTitle, countCols: 6)
-//
-//        goBackButton = addButtonPL(to: gameLayer, text: GV.language.getText(.tcBack), action: #selector(goBack), line: GoBack)
-//        setGameMenuSizesAndPositions()
-//    }
     
     private func addShortButtonPL(to: SKScene, text: String, action: Selector, col: CGFloat, headerNode: SKNode, countCols: CGFloat) {
         let button = MyButton(fontName: GV.fontName, size: CGSize(width: 100, height: 100))
@@ -126,67 +101,6 @@ class PlaySearchingWords: SKScene {
         to.addChild(button)
 
     }
-    
-//    @objc private func startNew5x5Game() {
-//        GV.size = 5
-//        startNewGame(new: true)
-//    }
-//
-//    @objc private func startNew6x6Game() {
-//        GV.size = 6
-//        startNewGame(new: true)
-//    }
-//
-//    @objc private func startNew7x7Game() {
-//        GV.size = 7
-//        startNewGame(new: true)
-//    }
-//
-//    @objc private func startNew8x8Game() {
-//        GV.size = 8
-//        startNewGame(new: true)
-//    }
-//
-//    @objc private func startNew9x9Game() {
-//        GV.size = 9
-//        startNewGame(new: true)
-//    }
-//
-//    @objc private func startNew10x10Game() {
-//        GV.size = 10
-//        startNewGame(new: true)
-//    }
-    
-//    @objc private func startFinished5x5Game() {
-//        GV.size = 5
-//        startNewGame(new: false)
-//    }
-//    
-//    @objc private func startFinished6x6Game() {
-//        GV.size = 6
-//        startNewGame(new: false)
-//    }
-//    
-//    @objc private func startFinished7x7Game() {
-//        GV.size = 7
-//        startNewGame(new: false)
-//    }
-//    
-//    @objc private func startFinished8x8Game() {
-//        GV.size = 8
-//        startNewGame(new: false)
-//    }
-//    
-//    @objc private func startFinished9x9Game() {
-//        GV.size = 9
-//        startNewGame(new: false)
-//    }
-//    
-//    @objc private func startFinished10x10Game() {
-//        GV.size = 10
-//        startNewGame(new: false)
-//    }
-//
     
     private func addButtonPL(to: SKNode, text: String, action: Selector, line: CGFloat)->MyButton {
         let button = MyButton(fontName: GV.fontName, size: CGSize(width: GV.minSide * 0.4, height: GV.maxSide * 0.05))
@@ -211,19 +125,6 @@ class PlaySearchingWords: SKScene {
         return button
     }
 
-    
-//    private func addButton(to: SKSpriteNode, text: String, action: Selector, name: String) {
-//        let myFont = UIFont(name: GV.headerFontName, size: GV.buttonFontSize)!
-//        let button = MyButton(fontName: GV.headerFontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
-//        to.addChild(button)
-//        button.setButtonLabel(title: text, font: myFont)
-//        button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)
-//        button.position = CGPoint(x: GV.actWidth * 0.5, y: (GV.actHeight * 0.2))
-//        button.size = CGSize(width: GV.minSide * 0.6, height: GV.maxSide * 0.07)
-//        button.zPosition = to.zPosition + 10
-//        button.name = name
-//    }
-//
     private func setPosItionsAndSizesOfNodesWithActNames(layer: SKNode, objects: [ObjectSP]) {
         for index in 0..<objects.count {
             let name = objects[index].name
@@ -424,14 +325,7 @@ class PlaySearchingWords: SKScene {
                 myActions.removeAll()
                 gameLayer.addChild(cell)
                 cell.setStatus(toStatus: .WholeWord)
-//                let path = UIBezierPath()
-//                if let particles = SKEmitterNode(fileNamed: "MyFireParticle.sks") {
-//                    particles.particleColor = .red
-//                    cell.addChild(particles)
-//                }
                 let toPosition = playingGrid!.gridPosition(col: cell.col, row: cell.row) + playingGrid!.position
-//                path.move(to: toPosition)
-//                path.addLine(to: CGPoint(x: firstPositionX + CGFloat(index) * newBlockSize * 1.2, y: fixPositionY))
                 cell.position = toPosition
                 myActions.append(SKAction.move(to: CGPoint(x: firstPositionX + CGFloat(index) * newBlockSize * 1.3, y: fixPositionY), duration: 0.8))
                 myActions.append(SKAction.resize(toWidth: newBlockSize * 1.2, height: newBlockSize * 1.2, duration: 0.5))
@@ -585,47 +479,6 @@ class PlaySearchingWords: SKScene {
     
     var playingGrid: Grid?
     var positions = [ObjectSP]()
-//    private func setPlayingGameSizesAndPositions() {
-//        let heightMpx: CGFloat = GV.onIpad ? 0.04 : 0.06
-//        let gridSize = playingGrid?.size
-//
-//        if GV.isPortrait {
-//            var objects: [ObjectSP] = [
-//                ObjectSP(CGRect(x: GV.actWidth * 0.5, y: GV.actHeight * 0.93, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx),                     GameHeaderName),
-//                ObjectSP(CGRect(x: GV.actWidth * 0.5, y: GV.actHeight * 0.05, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx),                     GoBackName), // GoBack
-//                ObjectSP(CGRect(x: GV.actWidth * 0.5, y: GV.actHeight - gridSize!.width * 0.7, width: gridSize!.width, height: gridSize!.height),           GridName),// Grid
-//                ObjectSP(CGRect(x: GV.actWidth * 0.5, y: GV.actHeight - gridSize!.width * 1.3, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx),    FixWordsHeaderLabelName)
-//            ]
-//            let font = UIFont(name: GV.headerFontName, size: GV.wordsFontSize)!
-//            let labelWidth = "A".fixLength(length: 16, center: false, leadingBlanks: false).width(font: font)
-//            let labelHeight = "A".height(font: font)
-//            let countLines:Int = Int(objects[3].frame.minY - objects[1].frame.maxY) / Int((labelHeight))
-//            for (index, myWord) in myWords.enumerated() {
-//                let col: Int = index / countLines
-//                let row: Int = index % Int(countLines)
-//
-//                let xPosition = GV.actWidth * 0.08 + CGFloat(col) * labelWidth
-//                let yPosition = objects[3].frame.minY - labelHeight - CGFloat(row) * labelHeight
-//                let frame = CGRect(x: xPosition, y: yPosition, width: labelWidth, height: labelHeight)
-//                objects.append(ObjectSP(frame, myWord.name!))
-//            }
-//            setPosItionsAndSizesOfNodesWithActNames(layer: gameLayer, objects: objects)
-//        } else {
-//            let yPos1: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.10 : 0.10) // GameHeader
-//            let yPos2: CGFloat = GV.actHeight - GV.actHeight * (GV.onIpad ? 0.32 : 0.90) // GoBack
-//            let yPos3: CGFloat = GV.actHeight * 0.5 // Grid
-//            let yPos4: CGFloat = GV.actHeight * 0.5 // Grid
-//
-//            let frames: [CGRect] = [
-//                CGRect(x: GV.actWidth * 0.5, y: yPos1, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GameHeader
-//                CGRect(x: GV.actWidth * 0.5, y: yPos2, width: GV.minSide * 0.5, height: GV.maxSide * heightMpx), // GoBack
-//                CGRect(x: GV.actWidth - gridSize!.width * 0.6, y: yPos3, width: gridSize!.width, height: gridSize!.height),  // Grid
-//                CGRect(x: GV.actWidth * 0.1, y: yPos4, width: gridSize!.width, height: gridSize!.height),  // Grid
-//            ]
-//            setPosItionsAndSizesOfNodesWithActNames(layer: gameLayer, objects: objects)
-//
-//        }
-//    }
     var fixWordsHeader: MyLabel!
     var goBackButton: MyButton!
     var scoreLabel: MyLabel!
@@ -669,35 +522,22 @@ class PlaySearchingWords: SKScene {
         if origGames.count > 0 {
             let origGame = origGames.first!
             fillGameArray(gameArray: GV.gameArray, content:  origGame.gameArray, toGrid: playingGrid!)
-    //        createWordLabels(game: origGame)
             let myGame = playedGamesRealm!.objects(PlayedGame.self).filter("primary = %@", primary)
             if myGame.count == 0 {
                 createNewPlayedGame(to: origGame)
-    //            showWordsToFind(playedGame: playedGame)
             } else {
                 playedGame = myGame.first!
-//                try! playedGamesRealm!.safeWrite {
-//                    playedGame.myWords = ""
-//                }
             }
             goBackButton = addButtonPL(to: gameLayer, text: GV.language.getText(.tcBack), action: #selector(goBackToMainMenu), line: GoBack)
-//            let test = gameLayer
             possibleLineCountP = abs((fixWordsHeader.plPosSize?.PPos.y)! - (goBackButton.frame.maxY)) / (1.2 * ("A".height(font: wordFont!)))
             possibleLineCountL = abs((fixWordsHeader.plPosSize?.LPos.y)! - (goBackButton.frame.maxY)) / (1.2 * ("A".height(font: wordFont!)))
             firstWordPositionYP = ((fixWordsHeader.plPosSize?.PPos.y)!) - GV.maxSide * 0.04
             firstWordPositionYL = ((fixWordsHeader.plPosSize?.LPos.y)!) - GV.maxSide * 0.04
             fillMandatoryWords()
             setGameArrayToActualState()
-//            goBackButton.drawBorder()
-//            let test = gameLayer
-            
         }
-//        setPlayingGameSizesAndPositions()
     }
     
-//    let lastHeaderIndex = 3
-//    let buttonIndex = 4
-
     let wordFont = UIFont(name: GV.headerFontName, size: GV.wordsFontSize)
     var firstWordPositionYP: CGFloat = 0
     var firstWordPositionYL: CGFloat = 0
@@ -716,18 +556,6 @@ class PlaySearchingWords: SKScene {
     var mandatoryWords = [UsedWord]()
     var allWords = [UsedWord]()
     
-//    private func createWordLabel(usedWord: UsedWord, mandatory: Bool)->MyLabel {
-//        let index = myWords.count + 1
-//        let text = (index > 9 ? "" : "0") + String(index) + ". " +
-//            (mandatory ? PlaySearchingWords.questionMark.fill(with: GV.questionMark, toLength: usedWord.word.count) : usedWord.word)
-//        let wordLabel = MyLabel(text: text, position: CGPoint(x: 0, y: 0), fontName: GV.headerFontName, fontSize: wordsFontSize, name: "")
-//        wordLabel.name = usedWord.word + (mandatory ? mandatoryLabelInName : ownLabelInName)
-//        wordLabel.horizontalAlignmentMode = .left
-//        actNames[actNames.count] = wordLabel.name
-//        gameLayer.addChild(wordLabel)
-//        return wordLabel
-//    }
-    
     private func addButton(to: SKNode, text: String, action: Selector, line: CGFloat, name: String? = nil) {
         let button = MyButton(fontName: GV.headerFontName, size: CGSize(width: GV.maxSide * 1.1, height: GV.minSide * 0.08))
         button.zPosition = self.zPosition + 20
@@ -745,18 +573,9 @@ class PlaySearchingWords: SKScene {
     
 
     @objc private func goBackToMainMenu() {
-//        removeChildrenWithNames(from: gameLayer, names: actNames)
         goBack()
     }
-//    var mandatoryWordLabels = [MyWordLabel]()
-    
-//    private func showWordsToFind(playedGame: PlayedGame) {
-//        let wordsToShow = playedGame.wordsToFind.components(separatedBy: GV.outerSeparator).sorted(by: {$0.count > $1.count})
-//        for usedWord in wordsToShow {
-//            mandatoryWords.append(UsedWord(from: usedWord))
-//        }
-//    }
-    
+  
     private func setGameArrayToActualState() {
         var counter = 0
         let myWordsInDB = playedGame.myWords.components(separatedBy: GV.outerSeparator)
@@ -775,7 +594,6 @@ class PlaySearchingWords: SKScene {
         }
         for item in mandatoryWords.sorted(by: {$0.word.count > $1.word.count || ($0.word.count > $1.word.count && $0.word < $1.word)}) {
             if !myLabels.contains(where: {$0.usedWord! == item}) {
-//                let label = createWordLabel(usedWord: item, mandatory: true)
                 let myWord = MyFoundedWord(usedWord: item, mandatory: true, prefixValue: counter + 1)
                 myWord.plPosSize = setPLPos(counter: counter)
                 myWord.setActPosSize()
@@ -784,6 +602,7 @@ class PlaySearchingWords: SKScene {
             }
             counter += 1
         }
+        
         if myWordsInDB.count > 0 {
             for item in myWordsInDB {
                 if item != "" {
@@ -856,21 +675,6 @@ class PlaySearchingWords: SKScene {
         }
     }
     
-//    private func checkChoosedWordInFoundedWordsMyWords()->Bool {
-//        var choosedWordIsOK = true
-////        stopChecking:
-////        for foundedWord in allWords {
-////            if foundedWord.usedWord! == choosedWord && !foundedWord.text!.contains(strings: [GV.questionMark]){
-////                choosedWordIsOK = false
-////                break stopChecking
-////            }
-////        }
-//        if allWords.contains(where: {$0 == choosedWord}) {
-//
-//        }
-//        return choosedWordIsOK
-//    }
-
     private func saveChoosedWord()->Bool {
         let returnValue = !allWords.contains(where: {$0 == choosedWord})//checkChoosedWordInFoundedWordsMyWords()
         if returnValue {
