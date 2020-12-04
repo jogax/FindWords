@@ -888,6 +888,53 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return result
     }
+    
+    func texture()->SKTexture {
+        func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
+            let context = CIContext(options: nil)
+//            if context != nil {
+                return context.createCGImage(inputImage, from: inputImage.extent)
+//            }
+//            return nil
+        }
+        
+
+        return SKTexture(cgImage: convertCIImageToCGImage(inputImage: CIImage(image: self)!))
+    }
+    
+    func drawOnImage() -> UIImage {
+        let image = self
+
+         // Create a context of the starting image size and set it as the current one
+        UIGraphicsBeginImageContext(image.size)
+         // Draw the starting image in the current context as background
+         image.draw(at: CGPoint.zero)
+
+         // Get the current context
+         let context = UIGraphicsGetCurrentContext()!
+
+         // Draw a red line
+         context.setLineWidth(10.0)
+         context.setStrokeColor(UIColor.red.cgColor)
+         context.move(to: CGPoint(x: 100, y: 2000))
+         context.addLine(to: CGPoint(x: 0, y: 200))
+         context.strokePath()
+         
+         // Draw a transparent green Circle
+         context.setStrokeColor(UIColor.green.cgColor)
+         context.setAlpha(0.5)
+         context.setLineWidth(10.0)
+         context.addEllipse(in: CGRect(x: 100, y: 100, width: 100, height: 100))
+         context.drawPath(using: .stroke) // or .fillStroke if need filling
+         
+         // Save the context as a new UIImage
+         let myImage = UIGraphicsGetImageFromCurrentImageContext()!
+         UIGraphicsEndImageContext()
+         
+         // Return modified image
+         return myImage
+    }
+    
 }
 
 extension Data {

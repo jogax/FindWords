@@ -18,14 +18,22 @@ enum ItemStatus: Int {
 
 public struct ConnectionType {
     var left = false
+    var leftTop = false
     var top = false
+    var rightTop = false
     var right = false
+    var rightBottom = false
     var bottom = false
-    init(left: Bool=false, top: Bool=false, right: Bool=false, bottom: Bool=false) {
+    var leftBottom = false
+    init(left: Bool=false, leftTop: Bool=false, top: Bool=false, rightTop: Bool=false, right: Bool=false, rightBottom: Bool=false, bottom: Bool=false, leftBottom: Bool=false) {
         self.left = left
+        self.leftTop = leftTop
         self.top = top
+        self.rightTop = rightTop
         self.right = right
+        self.rightBottom = rightBottom
         self.bottom = bottom
+        self.leftBottom = leftBottom
     }
 }
 
@@ -359,6 +367,18 @@ class GameboardItem: SKSpriteNode {
         if connectionType.bottom {
             self.connectionType.bottom = true
         }
+        if connectionType.leftBottom {
+            self.connectionType.leftBottom = true
+        }
+        if connectionType.leftTop {
+            self.connectionType.leftTop = true
+        }
+        if connectionType.rightTop {
+            self.connectionType.rightTop = true
+        }
+        if connectionType.rightBottom {
+            self.connectionType.rightBottom = true
+        }
         setTexture()
     }
     
@@ -419,20 +439,72 @@ class GameboardItem: SKSpriteNode {
 
     
     private func setTexture() {
+        // Drawing in a shape
+        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
+        self.texture = SKTexture(imageNamed: name)
+        if status == .Used {
+            return
+        }
+        let shape = SKShapeNode()
+        shape.strokeColor = .red
+        shape.fillColor = .clear
+        shape.lineWidth = 15
+        let path = UIBezierPath()
+        if self.connectionType.bottom {
+            path.move(to: CGPoint(x:self.frame.midX, y: self.frame.midY))
+            path.addLine(to: CGPoint(x:self.frame.midX, y: self.frame.midY - self.frame.height))
+        }
+        if self.connectionType.top {
+            path.move(to:CGPoint(x:self.frame.midX, y: self.frame.midY))
+            path.addLine(to: CGPoint(x:self.frame.midX, y: self.frame.midY + self.frame.height))
+        }
+        if self.connectionType.left {
+            path.move(to: CGPoint(x:self.frame.minX, y: self.frame.midY))
+            path.addLine(to: CGPoint(x:self.frame.minX - self.frame.width, y: self.frame.midY))
+        }
+        if self.connectionType.right {
+            path.move(to:CGPoint(x:0, y: self.frame.midY))
+            path.addLine(to: CGPoint(x:100, y: self.frame.midY))
+       }
+        if self.connectionType.leftTop {
+            path.move(to: CGPoint(x:self.frame.minX, y: self.frame.maxY))
+            path.addLine(to: CGPoint(x:self.frame.midX - self.frame.width, y: self.frame.midY + self.frame.height))
+        }
+        if self.connectionType.rightTop {
+            path.move(to:CGPoint(x:self.frame.maxX, y: self.frame.maxY))
+            path.addLine(to: CGPoint(x:self.frame.midX + self.frame.width, y: self.frame.midY + self.frame.height))
+        }
+        if self.connectionType.leftBottom {
+            path.move(to: CGPoint(x:self.frame.minX, y: self.frame.minY))
+            path.addLine(to: CGPoint(x:self.frame.midX - self.frame.width, y: self.frame.midY - self.frame.height))
+        }
+        if self.connectionType.rightBottom {
+            path.move(to:CGPoint(x:self.frame.maxX, y: self.frame.minY))
+            path.addLine(to: CGPoint(x:self.frame.midX + self.frame.width, y: self.frame.midY - self.frame.height))
+       }
+
+        shape.path = path.cgPath
+//        let textureNew = SKView().texture(from: shape)
         var connectionName = "Connection"
         connectionName += self.connectionType.left ? "1" : "0"
         connectionName += self.connectionType.top ? "1" : "0"
         connectionName += self.connectionType.right ? "1" : "0"
         connectionName += self.connectionType.bottom ? "1" : "0"
-        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
+//        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
 //        let me = self
-        let texture = SKTexture(imageNamed: name)
-        self.texture = texture
-        let child = SKSpriteNode(imageNamed: connectionName)
-        child.size = self.size * 1.1
-        child.zPosition = self.zPosition - 10
+        let myImage = UIImage(named: name)
+        let drawed = myImage?.drawOnImage()
+//        self.texture = SKTexture(imageNamed: name)
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+        let texture = SKView().texture(from: shape)
+        UIGraphicsEndImageContext()
+        let child = SKSpriteNode(texture: texture) // imageNamed: connectionName)
+//        child.size = self.size * 1.1
+        child.zPosition = self.zPosition + 10
         child.name = "Connection"
+        let main = self
         self.addChild(child)
+        print()
     }
 
     public func toString()->String {

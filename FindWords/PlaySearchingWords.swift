@@ -438,21 +438,54 @@ class PlaySearchingWords: SKScene {
         var connectionTypes = Array(repeating: ConnectionType(), count: usedLetters.count)
         if usedLetters.count > 0 {
             for index in 0..<usedLetters.count - 1 {
+                
                 if usedLetters[index].row < usedLetters[index + 1].row {
-                    connectionTypes[index].bottom = true
-                    connectionTypes[index + 1].top = true
+                    if usedLetters[index].col < usedLetters[index + 1].col {
+                        connectionTypes[index].rightBottom = true
+                        connectionTypes[index + 1].leftTop = true
+                    } else if usedLetters[index].col > usedLetters[index + 1].col {
+                        connectionTypes[index].leftBottom = true
+                        connectionTypes[index + 1].rightTop = true
+                    } else {
+                        connectionTypes[index].bottom = true
+                        connectionTypes[index + 1].top = true
+                    }
                 }
                 if usedLetters[index].row > usedLetters[index + 1].row {
-                    connectionTypes[index].top = true
-                    connectionTypes[index + 1].bottom = true
+                    if usedLetters[index].col > usedLetters[index + 1].col {
+                        connectionTypes[index].leftTop = true
+                        connectionTypes[index + 1].rightBottom = true
+                    } else if usedLetters[index].col < usedLetters[index + 1].col {
+                        connectionTypes[index].rightTop = true
+                        connectionTypes[index + 1].leftBottom = true
+                    } else {
+                        connectionTypes[index].top = true
+                        connectionTypes[index + 1].bottom = true
+                    }
                 }
                 if usedLetters[index].col < usedLetters[index + 1].col {
-                    connectionTypes[index].right = true
-                    connectionTypes[index + 1].left = true
+                    if usedLetters[index].row < usedLetters[index + 1].row {
+                        connectionTypes[index].rightBottom = true
+                        connectionTypes[index + 1].leftTop = true
+                    } else if usedLetters[index].row > usedLetters[index + 1].row {
+                        connectionTypes[index].rightTop = true
+                        connectionTypes[index + 1].leftBottom = true
+                    } else {
+                        connectionTypes[index].right = true
+                        connectionTypes[index + 1].left = true
+                    }
                 }
                 if usedLetters[index].col > usedLetters[index + 1].col {
-                    connectionTypes[index].left = true
-                    connectionTypes[index + 1].right = true
+                    if usedLetters[index].row < usedLetters[index + 1].row {
+                        connectionTypes[index].leftBottom = true
+                        connectionTypes[index + 1].rightTop = true
+                    } else if usedLetters[index].row > usedLetters[index + 1].row {
+                        connectionTypes[index].leftTop = true
+                        connectionTypes[index + 1].rightBottom = true
+                    } else {
+                        connectionTypes[index].left = true
+                        connectionTypes[index + 1].right = true
+                    }
                 }
             }
         }
