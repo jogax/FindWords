@@ -684,6 +684,10 @@ class PlaySearchingWords: SKScene {
             }
             scoreLabel!.text = GV.language.getText(.tcScore, values: String(GV.score), String(0))
         }
+        iterateGameArray(doing: {(col: Int, row: Int) in
+            GV.gameArray[col][row].showConnections()
+        })
+
     }
     
     private func iterateGameArray(doing: (_ col: Int, _ row: Int)->()) {

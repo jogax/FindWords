@@ -55,6 +55,97 @@ class DrawImages {
         var size: MySize
         
     }
+    
+    static func drawOctagon (size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        let ctx = UIGraphicsGetCurrentContext()
+        let lineWidth: CGFloat = 8
+        ctx!.setLineWidth(lineWidth)
+       
+        let innerSize = CGSize (width: size.width - 20, height: size.height - 20)
+        ctx!.setStrokeColor(UIColor.red.cgColor)
+        ctx!.setFillColor(UIColor.red.cgColor)
+        ctx!.setLineJoin (.round)
+        ctx!.setLineCap (.round)
+        let startAngle = CGFloat(22.5)
+        let a = innerSize.width / 2
+        let b = a * tan(startAngle)
+        let radius = sqrt(a * a + b * b)
+        let center = CGPoint(x: size.width / 2, y: size.width / 2)
+        var angle = [CGFloat]()
+        angle.append(startAngle)
+        for _ in 0...7 {
+            angle.append(angle[angle.count - 1] + 45.0)
+        }
+        let p1 = pointOfCircle(radius: radius, center: center, angle: angle[0] * oneGrad)
+        let p2 = pointOfCircle(radius: radius, center: center, angle: angle[1]  * oneGrad)
+        let p3 = pointOfCircle(radius: radius, center: center, angle: angle[2]  * oneGrad)
+        let p4 = pointOfCircle(radius: radius, center: center, angle: angle[3]  * oneGrad)
+        let p5 = pointOfCircle(radius: radius, center: center, angle: angle[4]  * oneGrad)
+        let p6 = pointOfCircle(radius: radius, center: center, angle: angle[5]  * oneGrad)
+        let p7 = pointOfCircle(radius: radius, center: center, angle: angle[6]  * oneGrad)
+        let p8 = pointOfCircle(radius: radius, center: center, angle: angle[7]  * oneGrad)
+        let p9 = pointOfCircle(radius: radius, center: center, angle: angle[8]  * oneGrad)
+        ctx!.move(to: p1)
+        ctx!.addLine(to: p2)
+        ctx!.addLine(to: p3)
+        ctx!.addLine(to: p4)
+        ctx!.addLine(to: p5)
+        ctx!.addLine(to: p6)
+        ctx!.addLine(to: p7)
+        ctx!.addLine(to: p8)
+        ctx!.addLine(to: p9)
+        ctx!.fillPath()
+        ctx!.strokePath()
+        
+        
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            return image
+        }
+        return UIImage()
+    }
+
+    static func drawConnections (size: CGSize, connections: ConnectionType) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        let ctx = UIGraphicsGetCurrentContext()
+        let lineWidth: CGFloat = 8
+        let center = CGPoint(x: size.width / 2, y: size.height / 2)
+        let lineLength = size.width / 2
+        ctx!.setLineWidth(lineWidth)
+       
+        ctx!.setStrokeColor(UIColor.blue.cgColor)
+        ctx!.setLineJoin (.round)
+        ctx!.setLineCap (.round)
+        if connections.left {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x - lineLength, y: center.y))
+            ctx!.strokePath()
+        }
+        
+        if connections.bottom {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x, y: center.y + lineLength))
+            ctx!.strokePath()
+        }
+        
+        if connections.right {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x + lineLength, y: center.y))
+            ctx!.strokePath()
+        }
+        
+        if connections.top {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x, y: center.y - lineLength))
+            ctx!.strokePath()
+        }
+        
+
+        if let image = UIGraphicsGetImageFromCurrentImageContext() {
+            return image
+        }
+        return UIImage()
+    }
 
     static func drawButton(size: CGSize, outerColor: UIColor = .green, innerColor: UIColor = .lightGray) -> SKTexture {
         //let endAngle = CGFloat(2*M_PI)
@@ -96,7 +187,7 @@ class DrawImages {
         }
     }
     
-    static func pointOfCircle(_ radius: CGFloat, center: CGPoint, angle: CGFloat) -> CGPoint {
+    static func pointOfCircle(radius: CGFloat, center: CGPoint, angle: CGFloat) -> CGPoint {
         let pointOfCircle = CGPoint (x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))
         return pointOfCircle
     }

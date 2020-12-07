@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		D01931C725714C8100D9B62F /* DrawImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = D01931C625714C8100D9B62F /* DrawImages.swift */; };
+		D02A7BE3257E72C8001104A1 /* GreenOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE2257E72C8001104A1 /* GreenOctagon.png */; };
+		D02A7BE5257E72D7001104A1 /* RedOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE4257E72D7001104A1 /* RedOctagon.png */; };
+		D02A7BE7257E72E3001104A1 /* GrayOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE6257E72E3001104A1 /* GrayOctagon.png */; };
+		D02A7BE9257E72EB001104A1 /* GoldOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE8257E72EB001104A1 /* GoldOctagon.png */; };
+		D02A7BEB257E7503001104A1 /* BlueOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BEA257E7503001104A1 /* BlueOctagon.png */; };
 		D0722CFC256FCB4600B53468 /* Rosa Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D0722CFB256FCB4600B53468 /* Rosa Button.png */; };
 		D0722D02256FEAA900B53468 /* GradientNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0722D01256FEAA900B53468 /* GradientNode.swift */; };
 		D078391F2567E514005BBD28 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D078391E2567E514005BBD28 /* Reachability.framework */; };
@@ -106,6 +111,11 @@
 
 /* Begin PBXFileReference section */
 		D01931C625714C8100D9B62F /* DrawImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawImages.swift; sourceTree = "<group>"; };
+		D02A7BE2257E72C8001104A1 /* GreenOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenOctagon.png; sourceTree = "<group>"; };
+		D02A7BE4257E72D7001104A1 /* RedOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedOctagon.png; sourceTree = "<group>"; };
+		D02A7BE6257E72E3001104A1 /* GrayOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayOctagon.png; sourceTree = "<group>"; };
+		D02A7BE8257E72EB001104A1 /* GoldOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoldOctagon.png; sourceTree = "<group>"; };
+		D02A7BEA257E7503001104A1 /* BlueOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueOctagon.png; sourceTree = "<group>"; };
 		D0722CFB256FCB4600B53468 /* Rosa Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rosa Button.png"; sourceTree = "<group>"; };
 		D0722D01256FEAA900B53468 /* GradientNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNode.swift; sourceTree = "<group>"; };
 		D078391E2567E514005BBD28 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = ../_Realm/Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
@@ -288,6 +298,11 @@
 		D0D0DB112566C52C00EF08A8 /* Pic */ = {
 			isa = PBXGroup;
 			children = (
+				D02A7BEA257E7503001104A1 /* BlueOctagon.png */,
+				D02A7BE8257E72EB001104A1 /* GoldOctagon.png */,
+				D02A7BE6257E72E3001104A1 /* GrayOctagon.png */,
+				D02A7BE4257E72D7001104A1 /* RedOctagon.png */,
+				D02A7BE2257E72C8001104A1 /* GreenOctagon.png */,
 				D0722CFB256FCB4600B53468 /* Rosa Button.png */,
 				D0F8E606256D4B3F001C5EB7 /* Red Button.png */,
 				D0D0DB642566C8CB00EF08A8 /* AppIcon.png */,
@@ -407,12 +422,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0D0DB892566C8CB00EF08A8 /* LightGraySprite.png in Resources */,
+				D02A7BE7257E72E3001104A1 /* GrayOctagon.png in Resources */,
 				D0D0DB7C2566C8CB00EF08A8 /* Connection1000.png in Resources */,
+				D02A7BE9257E72EB001104A1 /* GoldOctagon.png in Resources */,
 				D0D0DB822566C8CB00EF08A8 /* Connection1010.png in Resources */,
+				D02A7BEB257E7503001104A1 /* BlueOctagon.png in Resources */,
 				D0D0DB692566C8CB00EF08A8 /* Connection1110.png in Resources */,
 				D0D0DB8A2566C8CB00EF08A8 /* RedSprite.png in Resources */,
 				D0D0DB6E2566C8CB00EF08A8 /* Connection1001.png in Resources */,
 				D0D0DB382566C52C00EF08A8 /* NoSuchWord.mp3 in Resources */,
+				D02A7BE5257E72D7001104A1 /* RedOctagon.png in Resources */,
 				D0D0DB872566C8CB00EF08A8 /* Connection0000.png in Resources */,
 				D0D0DB7D2566C8CB00EF08A8 /* IMG_0500.png in Resources */,
 				D0D0DB802566C8CB00EF08A8 /* whiteSprite.png in Resources */,
@@ -423,6 +442,7 @@
 				D0D0DB6C2566C8CB00EF08A8 /* Connection1111.png in Resources */,
 				D0D0DB702566C8CB00EF08A8 /* GreenSprite.png in Resources */,
 				D0D0DB712566C8CB00EF08A8 /* Connection1011.png in Resources */,
+				D02A7BE3257E72C8001104A1 /* GreenOctagon.png in Resources */,
 				D0D0DB7A2566C8CB00EF08A8 /* Connection0101.png in Resources */,
 				D0D0DB812566C8CB00EF08A8 /* blueBackground.png in Resources */,
 				D0D0DB862566C8CB00EF08A8 /* AppIcon.png in Resources */,

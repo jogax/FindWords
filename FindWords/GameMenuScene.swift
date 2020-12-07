@@ -91,6 +91,8 @@ class GameMenuScene: SKScene, PlaySearchingWordsDelegate {
         #if SIMULATOR
             GV.actDevice = DeviceType.getActDevice()
         #endif
+        
+//        let octagon = DrawImages.drawOctagon(size: CGSize(width: 250, height: 250))
 
         menuLayer = self
 //        newWordListRealm = getNewWordList()

@@ -35,6 +35,9 @@ public struct ConnectionType {
         self.bottom = bottom
         self.leftBottom = leftBottom
     }
+    func isSet() -> Bool {
+        return left || leftTop || top || rightTop || right || rightBottom || bottom || leftBottom
+    }
 }
 
 
@@ -69,18 +72,18 @@ class GameboardItem: SKSpriteNode {
     private var textureName: [StatusType : String] =
         [StatusType(itemStatus: .Empty, fixItem: false) : "whiteSprite",
          StatusType(itemStatus: .Empty, fixItem: true) : "whiteSprite",
-         StatusType(itemStatus: .Temporary, fixItem: false) : "LightBlueSprite",
-         StatusType(itemStatus: .Temporary, fixItem: true) : "LightBlueSprite",
-         StatusType(itemStatus: .Used, fixItem: false) : "LightGraySprite", //"LightRedSprite",
-         StatusType(itemStatus: .Used, fixItem: true) : "LilaSprite",
-         StatusType(itemStatus: .WholeWord, fixItem: false) : "GreenSprite",
-         StatusType(itemStatus: .WholeWord, fixItem: true) : "GreenLilaSprite",
-         StatusType(itemStatus: .Error, fixItem: false) : "RedSprite",
-         StatusType(itemStatus: .Error, fixItem: true) : "RedSprite",
+         StatusType(itemStatus: .Temporary, fixItem: false) : "BlueOctagon", //LightBlueSprite",
+         StatusType(itemStatus: .Temporary, fixItem: true) : "BlueOctagon", //"LightBlueSprite",
+         StatusType(itemStatus: .Used, fixItem: false) : "GrayOctagon", //"LightGraySprite", //"LightRedSprite",
+         StatusType(itemStatus: .Used, fixItem: true) : "GrayOctagon", //Octagon" //"LilaSprite",
+         StatusType(itemStatus: .WholeWord, fixItem: false) : "GreenOctagon", //"GreenSprite",
+         StatusType(itemStatus: .WholeWord, fixItem: true) : "GreenOctagon", //"GreenLilaSprite",
+         StatusType(itemStatus: .Error, fixItem: false) : "RedOctagon",//"RedSprite",
+         StatusType(itemStatus: .Error, fixItem: true) : "RedOctagon", //"RedSprite",
          StatusType(itemStatus: .DarkGreenStatus, fixItem: false) : "DarkGreenSprite",
          StatusType(itemStatus: .DarkGreenStatus, fixItem: true) : "DarkGreenSprite",
-         StatusType(itemStatus: .GoldStatus, fixItem: false) : "GoldSprite",
-         StatusType(itemStatus: .GoldStatus, fixItem: true) : "GoldSprite",
+         StatusType(itemStatus: .GoldStatus, fixItem: false) : "GoldOctagon", //"GoldSprite",
+         StatusType(itemStatus: .GoldStatus, fixItem: true) : "GoldOctagon", //"GoldSprite",
          StatusType(itemStatus: .DarkGoldStatus, fixItem: false) : "DarkGoldSprite",
          StatusType(itemStatus: .DarkGoldStatus, fixItem: true) : "DarkGoldSprite"]
 
@@ -379,7 +382,7 @@ class GameboardItem: SKSpriteNode {
         if connectionType.rightBottom {
             self.connectionType.rightBottom = true
         }
-        setTexture()
+//        setTexture()
     }
     
     public func setStatus(/*toColor: MyColor = .myWhiteColor,*/ toStatus: ItemStatus, connectionType: ConnectionType = ConnectionType(), incrWords: Bool = false, decrWords: Bool = false) {
@@ -420,7 +423,12 @@ class GameboardItem: SKSpriteNode {
             self.countWordsLabel.text = ""
         }
 //        print("In SetStatus: caller: \(calledFrom), letter: \(letter), oldStatus: \(oldStatus), status: \(newStatus), newStatus: \(status)")
-        setConnectionType(connectionType: connectionType)
+        if connectionType.isSet() {
+            setConnectionType(connectionType: connectionType)
+        }
+        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
+        self.texture = SKTexture(imageNamed: name)
+ 
     }
     
     var lastCol = 0
@@ -436,15 +444,29 @@ class GameboardItem: SKSpriteNode {
         timer = Date()
     }
     
+    public func showConnections() {
+        if connectionType.isSet() {
+            setTexture()
+            if letter == "R" {
+                print("letter: \(letter)")
+            }
+        }
+    }
+    
 
     
     private func setTexture() {
         // Drawing in a shape
-        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
-        self.texture = SKTexture(imageNamed: name)
-        if status == .Used {
-            return
-        }
+//        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
+//        self.texture = SKTexture(imageNamed: name)
+//        if status == .Used {
+//            return
+//        }
+        let p1 = GV.gameArray[0][0].position
+        let p2 = GV.gameArray[0][2].position
+        let distance = abs(p2.y - p1.y)
+        let size = CGSize(width: distance, height: distance)
+        let connectedSprite = DrawImages.drawConnections(size: size, connections: connectionType)
         let shape = SKShapeNode()
         shape.strokeColor = .red
         shape.fillColor = .clear
@@ -492,8 +514,8 @@ class GameboardItem: SKSpriteNode {
         connectionName += self.connectionType.bottom ? "1" : "0"
 //        let name = textureName[StatusType(itemStatus: status, fixItem: fixItem)]!
 //        let me = self
-        let myImage = UIImage(named: name)
-        let drawed = myImage?.drawOnImage()
+//        let myImage = UIImage(named: name)
+//        let drawed = myImage?.drawOnImage()
 //        self.texture = SKTexture(imageNamed: name)
 //        let image = UIGraphicsGetImageFromCurrentImageContext()
         let texture = SKView().texture(from: shape)
