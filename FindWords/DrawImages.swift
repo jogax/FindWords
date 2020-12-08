@@ -105,15 +105,15 @@ class DrawImages {
         return UIImage()
     }
 
-    static func drawConnections (size: CGSize, connections: ConnectionType) -> UIImage {
+    static func drawConnections (size: CGSize, connections: ConnectionType) -> SKTexture {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         let ctx = UIGraphicsGetCurrentContext()
-        let lineWidth: CGFloat = 8
+        let lineWidth: CGFloat = 6
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         let lineLength = size.width / 2
         ctx!.setLineWidth(lineWidth)
        
-        ctx!.setStrokeColor(UIColor.blue.cgColor)
+        ctx!.setStrokeColor(UIColor.black.cgColor)
         ctx!.setLineJoin (.round)
         ctx!.setLineCap (.round)
         if connections.left {
@@ -140,11 +140,35 @@ class DrawImages {
             ctx!.strokePath()
         }
         
+        if connections.leftTop {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x - lineLength, y: center.y - lineLength))
+            ctx!.strokePath()
+        }
+        
+        if connections.leftBottom {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x - lineLength, y: center.y + lineLength))
+            ctx!.strokePath()
+        }
+        
+        if connections.rightTop {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x + lineLength, y: center.y - lineLength))
+            ctx!.strokePath()
+        }
+        
+        if connections.rightBottom {
+            ctx!.move(to: center)
+            ctx!.addLine(to: CGPoint(x: center.x + lineLength, y: center.y + lineLength))
+            ctx!.strokePath()
+        }
+        
 
         if let image = UIGraphicsGetImageFromCurrentImageContext() {
-            return image
+            return image.texture()
         }
-        return UIImage()
+        return SKTexture()
     }
 
     static func drawButton(size: CGSize, outerColor: UIColor = .green, innerColor: UIColor = .lightGray) -> SKTexture {
@@ -180,10 +204,7 @@ class DrawImages {
             let image = UIGraphicsGetImageFromCurrentImageContext()!.roundedImageWithBorder(width: 5.0, color: .darkGray, radius: 14)!
             
             UIGraphicsEndImageContext()
-//            let blur = CIImage(image: image)!.applyingGaussianBlur(sigma: 50)
-            let returnTexture = SKTexture(cgImage: convertCIImageToCGImage(inputImage: CIImage(image: image)!))
-            generatedTextures[imageType] = returnTexture
-            return returnTexture
+            return image.texture()
         }
     }
     

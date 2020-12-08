@@ -255,9 +255,14 @@ class PlaySearchingWords: SKScene {
 //        case Choosing = 0, Playing
 //    }
     var choosedWord = UsedWord()
+    var movingLocations = [CGPoint]()
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         choosedWord = UsedWord()
         let touchLocation = touches.first!.location(in: self)
+        movingLocations.removeAll()
+        movingLocations.append(touchLocation)
+        print("======================================")
+        print("\(movingLocations.count): \(movingLocations.last!)")
         let (OK, col, row) = analyzeNodesAtLocation(location: touchLocation)
         if OK {
             choosedWord.append(UsedLetter(col: col, row: row, letter: GV.gameArray[col][row].letter))
@@ -267,7 +272,9 @@ class PlaySearchingWords: SKScene {
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchLocation = touches.first!.location(in: self)
+        movingLocations.append(touchLocation)
         let (OK, col, row) = analyzeNodesAtLocation(location: touchLocation)
+        print("\(movingLocations.count): \(movingLocations.last!) col: \(col), row: \(row), letter: \(GV.gameArray[col][row].letter), OK: \(OK)")
         let actLetter = UsedLetter(col: col, row: row, letter: GV.gameArray[col][row].letter)
         if OK {
             if choosedWord.count > 1 {
