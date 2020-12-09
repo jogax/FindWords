@@ -709,7 +709,7 @@ extension String {
         }
         return returnValue
     }
-
+    
     func fixLength(length: Int, center: Bool = false, leadingBlanks: Bool = true)->String {
         var returnValue: String = self
         if returnValue.count < length {

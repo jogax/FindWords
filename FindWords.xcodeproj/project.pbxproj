@@ -90,7 +90,6 @@
 		D0D0DB892566C8CB00EF08A8 /* LightGraySprite.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D0DB672566C8CB00EF08A8 /* LightGraySprite.png */; };
 		D0D0DB8A2566C8CB00EF08A8 /* RedSprite.png in Resources */ = {isa = PBXBuildFile; fileRef = D0D0DB682566C8CB00EF08A8 /* RedSprite.png */; };
 		D0F8E607256D4B3F001C5EB7 /* Red Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F8E606256D4B3F001C5EB7 /* Red Button.png */; };
-		D0F8E609256D62D8001C5EB7 /* Blue Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D0F8E608256D62D8001C5EB7 /* Blue Button.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -192,7 +191,6 @@
 		D0D0DB672566C8CB00EF08A8 /* LightGraySprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightGraySprite.png; sourceTree = "<group>"; };
 		D0D0DB682566C8CB00EF08A8 /* RedSprite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedSprite.png; sourceTree = "<group>"; };
 		D0F8E606256D4B3F001C5EB7 /* Red Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Button.png"; sourceTree = "<group>"; };
-		D0F8E608256D62D8001C5EB7 /* Blue Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Blue Button.png"; path = "Pic/Blue Button.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +236,6 @@
 				D0D0DB162566C52C00EF08A8 /* GameBoardItem.swift */,
 				D0722D01256FEAA900B53468 /* GradientNode.swift */,
 				D0D0DAFC2566C52B00EF08A8 /* GameMenuScene.swift */,
-				D0F8E608256D62D8001C5EB7 /* Blue Button.png */,
 				D0D0DB132566C52C00EF08A8 /* GameViewController.swift */,
 				D0D0DB122566C52C00EF08A8 /* GenerateGameArray.swift */,
 				D0D0DB052566C52B00EF08A8 /* Grid.swift */,
@@ -464,7 +461,6 @@
 				D0D0DB7E2566C8CB00EF08A8 /* Connection0100.png in Resources */,
 				D0D0DB6A2566C8CB00EF08A8 /* GreenLilaSprite.png in Resources */,
 				D0D0DB732566C8CB00EF08A8 /* LilaSprite.png in Resources */,
-				D0F8E609256D62D8001C5EB7 /* Blue Button.png in Resources */,
 				D0D0DB2B2566C52C00EF08A8 /* NewWordList.realm in Resources */,
 				D0D0DB392566C52C00EF08A8 /* OKWord.mp3 in Resources */,
 				D0D0DB792566C8CB00EF08A8 /* LandscapeBG.png in Resources */,

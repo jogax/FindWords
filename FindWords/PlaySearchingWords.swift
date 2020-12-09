@@ -264,23 +264,57 @@ class PlaySearchingWords: SKScene {
         print("======================================")
         print("\(movingLocations.count): \(movingLocations.last!)")
         let (OK, col, row) = analyzeNodesAtLocation(location: touchLocation)
+        colRowTable.removeAll()
         if OK {
             choosedWord.append(UsedLetter(col: col, row: row, letter: GV.gameArray[col][row].letter))
+            colRowTable.append(ColRow(col: col, row: row, count: 1))
             GV.gameArray[col][row].setStatus(toStatus: .Temporary)
         }
     }
+    
+    struct ColRow {
+        var col = Int(0)
+        var row = Int(0)
+        var count = Int(0)
+        init(col: Int, row: Int, count: Int) {
+            self.col = col
+            self.row = row
+            self.count = count
+        }
+    }
+    var colRowTable = [ColRow]()
+    
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchLocation = touches.first!.location(in: self)
         movingLocations.append(touchLocation)
         let (OK, col, row) = analyzeNodesAtLocation(location: touchLocation)
-        print("\(movingLocations.count): \(movingLocations.last!) col: \(col), row: \(row), letter: \(GV.gameArray[col][row].letter), OK: \(OK)")
         let actLetter = UsedLetter(col: col, row: row, letter: GV.gameArray[col][row].letter)
         if OK {
+            var lastIndex = colRowTable.count - 1
+            if colRowTable[lastIndex].col == col && colRowTable[lastIndex].row == row {
+                colRowTable[lastIndex].count += 1
+            } else {
+                colRowTable.append(ColRow(col: col, row: row, count: 1))
+                lastIndex += 1
+            }
+            if colRowTable[lastIndex].count == 1 {
+                if colRowTable[lastIndex - 1].count < 3 {
+                    print("choosedWord before: \(choosedWord.word)")
+                    print("usedLetters before: \(choosedWord.usedLetters)")
+                    GV.gameArray[colRowTable[lastIndex - 1].col][colRowTable[lastIndex - 1].row].setStatus(toStatus: .OrigStatus)
+                    colRowTable.remove(at: lastIndex - 1)
+                    choosedWord.word = choosedWord.word.startingSubString(length: choosedWord.count - 1)
+                    choosedWord.usedLetters.removeLast()
+                    print("choosedWord after: \(choosedWord.word)")
+                    print("usedLetters after: \(choosedWord.usedLetters)")
+                }
+            }
+            print("\(movingLocations.count): \(movingLocations.last!) col: \(col), row: \(row), letter: \(GV.gameArray[col][row].letter), OK: \(OK)")
             if choosedWord.count > 1 {
                 if choosedWord.usedLetters[choosedWord.count - 2] == actLetter {
                     let oldLetter = choosedWord.usedLetters.last!
-                    GV.gameArray[oldLetter.col][oldLetter.row].setStatus(toStatus: .Used)
+                    GV.gameArray[oldLetter.col][oldLetter.row].setStatus(toStatus: .OrigStatus)
                     choosedWord.removeLast()
                     return
                 }
