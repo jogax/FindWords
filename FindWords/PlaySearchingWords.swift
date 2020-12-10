@@ -261,8 +261,6 @@ class PlaySearchingWords: SKScene {
         let touchLocation = touches.first!.location(in: self)
         movingLocations.removeAll()
         movingLocations.append(touchLocation)
-        print("======================================")
-        print("\(movingLocations.count): \(movingLocations.last!)")
         let (OK, col, row) = analyzeNodesAtLocation(location: touchLocation)
         colRowTable.removeAll()
         if OK {
@@ -300,15 +298,12 @@ class PlaySearchingWords: SKScene {
             }
             if colRowTable[lastIndex].count == 1 {
                 if colRowTable[lastIndex - 1].count < 3 {
-                    print("choosedWord before: \(choosedWord.word)")
                     GV.gameArray[colRowTable[lastIndex - 1].col][colRowTable[lastIndex - 1].row].setStatus(toStatus: .OrigStatus)
                     colRowTable.remove(at: lastIndex - 1)
                     choosedWord.word = choosedWord.word.startingSubString(length: choosedWord.count - 1)
                     choosedWord.usedLetters.removeLast()
-                    print("choosedWord after: \(choosedWord.word)")
                 }
             }
-            print("\(movingLocations.count): letter: \(GV.gameArray[col][row].letter), choosedWord: \(choosedWord.word)")
             if choosedWord.count > 1 {
                 if choosedWord.usedLetters[choosedWord.count - 2] == actLetter {
                     let oldLetter = choosedWord.usedLetters.last!
