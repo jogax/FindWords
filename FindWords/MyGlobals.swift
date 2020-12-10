@@ -55,6 +55,7 @@ struct GV {
 //            }
         }
     }
+    static var playingGrid: Grid?
     static var gameArray3D = [[[GameboardItem]]]()
     static var mainView: UIViewController?
     static let language = Language()

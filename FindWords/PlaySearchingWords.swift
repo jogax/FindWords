@@ -301,16 +301,14 @@ class PlaySearchingWords: SKScene {
             if colRowTable[lastIndex].count == 1 {
                 if colRowTable[lastIndex - 1].count < 3 {
                     print("choosedWord before: \(choosedWord.word)")
-                    print("usedLetters before: \(choosedWord.usedLetters)")
                     GV.gameArray[colRowTable[lastIndex - 1].col][colRowTable[lastIndex - 1].row].setStatus(toStatus: .OrigStatus)
                     colRowTable.remove(at: lastIndex - 1)
                     choosedWord.word = choosedWord.word.startingSubString(length: choosedWord.count - 1)
                     choosedWord.usedLetters.removeLast()
                     print("choosedWord after: \(choosedWord.word)")
-                    print("usedLetters after: \(choosedWord.usedLetters)")
                 }
             }
-            print("\(movingLocations.count): \(movingLocations.last!) col: \(col), row: \(row), letter: \(GV.gameArray[col][row].letter), OK: \(OK)")
+            print("\(movingLocations.count): letter: \(GV.gameArray[col][row].letter), choosedWord: \(choosedWord.word)")
             if choosedWord.count > 1 {
                 if choosedWord.usedLetters[choosedWord.count - 2] == actLetter {
                     let oldLetter = choosedWord.usedLetters.last!
@@ -322,6 +320,10 @@ class PlaySearchingWords: SKScene {
             if !choosedWord.usedLetters.contains(where: {$0.col == col && $0.row == row && $0.letter == GV.gameArray[col][row].letter}) {
                 choosedWord.append(UsedLetter(col:col, row: row, letter: GV.gameArray[col][row].letter))
                 GV.gameArray[col][row].setStatus(toStatus: .Temporary)
+            } else {
+                if colRowTable.last!.count == 1 {
+                    colRowTable.removeLast()
+                }
             }
         }
     }
@@ -359,21 +361,21 @@ class PlaySearchingWords: SKScene {
                 cell.size = CGSize(width: newBlockSize, height: newBlockSize)
             }
             let firstPositionX = (GV.actWidth - wordSize) * 0.5
-//            let fixPositionY = playingGrid!.frame.minY - newBlockSize
-            let fixPositionY = playingGrid!.frame.maxY + newBlockSize
+//            let fixPositionY = GV.playingGrid!frame.minY - newBlockSize
+            let fixPositionY = GV.playingGrid!.frame.maxY + newBlockSize
 
             for (index, cell) in cellsToAnimate.enumerated() {
                 myActions.removeAll()
                 gameLayer.addChild(cell)
                 cell.setStatus(toStatus: .WholeWord)
-                let toPosition = playingGrid!.gridPosition(col: cell.col, row: cell.row) + playingGrid!.position
+                let toPosition = GV.playingGrid!.gridPosition(col: cell.col, row: cell.row) + GV.playingGrid!.position
                 cell.position = toPosition
                 myActions.append(SKAction.move(to: CGPoint(x: firstPositionX + CGFloat(index) * newBlockSize * 1.3, y: fixPositionY), duration: 0.8))
                 myActions.append(SKAction.resize(toWidth: newBlockSize * 1.2, height: newBlockSize * 1.2, duration: 0.5))
                 myActions.append(SKAction.resize(toWidth: newBlockSize * 0.8, height: newBlockSize * 0.8, duration: 0.5))
                 myActions.append(SKAction.resize(toWidth: newBlockSize * 1.2, height: newBlockSize * 1.2, duration: 0.5))
                 myActions.append(SKAction.fadeOut(withDuration: 0.2))
-                myActions.append(SKAction.move(to: playingGrid!.gridPosition(col: cell.col, row: cell.row) , duration: 0.2))
+                myActions.append(SKAction.move(to: GV.playingGrid!.gridPosition(col: cell.col, row: cell.row) , duration: 0.2))
                 myActions.append(SKAction.removeFromParent())
                 cell.zPosition = 100
                 let sequence = SKAction.sequence(myActions)
@@ -551,7 +553,7 @@ class PlaySearchingWords: SKScene {
         return (OK:false, col: 0, row: 0)
     }
     
-    var playingGrid: Grid?
+
     var positions = [ObjectSP]()
     var fixWordsHeader: MyLabel!
     var goBackButton: MyButton!
@@ -564,25 +566,25 @@ class PlaySearchingWords: SKScene {
         let sizeMultiplier = GV.onIpad ? sizeMultiplierIPad : sizeMultiplierIPhone
         let blockSize = GV.minSide * sizeMultiplier[GV.size]
         GV.blockSize = blockSize
-        playingGrid = Grid(blockSize: blockSize * 1.1, rows: GV.size, cols: GV.size)
-        let gridLposX = GV.maxSide - playingGrid!.size.width * 0.65
+        GV.playingGrid = Grid(blockSize: blockSize * 1.1, rows: GV.size, cols: GV.size)
+        let gridLposX = GV.maxSide - GV.playingGrid!.size.width * 0.65
         GV.gameArray = createNewGameArray(size: GV.size)
         let gameHeaderPosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: GV.maxSide * 0.92),
                                            LPos: CGPoint(x: gridLposX , y: GV.minSide * 0.94))
         let scoreLabelPosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: gameHeaderPosition.PPos.y - GV.maxSide * 0.02),
                                            LPos: CGPoint(x: gridLposX , y: GV.minSide * 0.90))
-        let gridPosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: scoreLabelPosition.PPos.y - GV.maxSide * 0.02 - (playingGrid?.size.height)! / 2),
-                                     LPos: CGPoint(x: gridLposX, y: GV.minSide * 0.89 - playingGrid!.size.height * 0.52),
-                                     PSize: playingGrid!.size,
-                                     LSize: playingGrid!.size)
+        let gridPosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: scoreLabelPosition.PPos.y - GV.maxSide * 0.02 - (GV.playingGrid!.size.height) / 2),
+                                     LPos: CGPoint(x: gridLposX, y: GV.minSide * 0.89 - GV.playingGrid!.size.height * 0.52),
+                                     PSize: GV.playingGrid!.size,
+                                     LSize: GV.playingGrid!.size)
         let gameHeader = MyLabel(text: GV.language.getText(.tcSearchWords, values: "\(GV.size)x\(GV.size)"), position: gameHeaderPosition, fontName: GV.headerFontName, fontSize: fontSize)
         gameLayer.addChild(gameHeader) // index 0
-        playingGrid!.plPosSize = gridPosition
-        playingGrid!.setActPosSize()
-        playingGrid!.zPosition = 20
-        gameLayer.addChild(playingGrid!)
+        GV.playingGrid!.plPosSize = gridPosition
+        GV.playingGrid!.setActPosSize()
+        GV.playingGrid!.zPosition = 20
+        gameLayer.addChild(GV.playingGrid!)
 
-        let fixWordsHeaderPosition = PLPosSize(PPos: CGPoint(x: gridPosition.PPos.x, y: gridPosition.PPos.y - playingGrid!.plPosSize!.LSize!.height * 0.6),
+        let fixWordsHeaderPosition = PLPosSize(PPos: CGPoint(x: gridPosition.PPos.x, y: gridPosition.PPos.y - GV.playingGrid!.plPosSize!.LSize!.height * 0.6),
                                                LPos: CGPoint(x: GV.maxSide * 0.18, y: gameHeaderPosition.LPos.y))
         fixWordsHeader = MyLabel(text: GV.language.getText(.tcFixWords), position: fixWordsHeaderPosition, fontName: GV.headerFontName, fontSize: fontSize)
         gameLayer.addChild(fixWordsHeader)
@@ -595,7 +597,7 @@ class PlaySearchingWords: SKScene {
         let origGames = gamesRealm.objects(Games.self).filter("primary = %@", primary)
         if origGames.count > 0 {
             let origGame = origGames.first!
-            fillGameArray(gameArray: GV.gameArray, content:  origGame.gameArray, toGrid: playingGrid!)
+            fillGameArray(gameArray: GV.gameArray, content:  origGame.gameArray, toGrid: GV.playingGrid!)
             let myGame = playedGamesRealm!.objects(PlayedGame.self).filter("primary = %@", primary)
             if myGame.count == 0 {
                 createNewPlayedGame(to: origGame)

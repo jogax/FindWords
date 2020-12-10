@@ -108,7 +108,7 @@ class DrawImages {
     static func drawConnections (size: CGSize, connections: ConnectionType) -> SKTexture {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         let ctx = UIGraphicsGetCurrentContext()
-        let lineWidth: CGFloat = 6
+        let lineWidth: CGFloat = 2
         let center = CGPoint(x: size.width / 2, y: size.height / 2)
         let lineLength = size.width / 2
         ctx!.setLineWidth(lineWidth)

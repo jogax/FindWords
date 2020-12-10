@@ -447,9 +447,7 @@ class GameboardItem: SKSpriteNode {
     public func showConnections() {
         if connectionType.isSet() {
             setTexture()
-            if letter == "R" {
-                print("letter: \(letter)")
-            }
+
         }
     }
     
@@ -472,7 +470,9 @@ class GameboardItem: SKSpriteNode {
         child.zPosition = self.zPosition - 10
         child.name = "Connection"
         let main = self
-        self.addChild(child)
+        child.position = self.position
+        GV.playingGrid!.addChild(child)
+//        self.addChild(child)
         print()
     }
 
