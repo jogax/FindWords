@@ -108,10 +108,15 @@ class PlaySearchingWords: SKScene {
         button.setButtonLabel(title: text, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
         button.setButtonAction(target: self, triggerEvent: .TouchUpInside, action: action)
         if line == GoBack {
-            button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: (GV.maxSide * 0.05)),
-                                         LPos: CGPoint(x: GV.maxSide * 0.5, y: (GV.maxSide * 0.03)),
-                                         PSize: CGSize(width: GV.minSide * 0.4, height: GV.maxSide * 0.05),
-                                         LSize: CGSize(width: GV.minSide * 0.4, height: GV.maxSide * 0.05))
+            button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.25, y: (GV.maxSide * 0.05)),
+                                         LPos: CGPoint(x: GV.maxSide * 0.25, y: (GV.maxSide * 0.03)),
+                                         PSize: CGSize(width: GV.minSide * 0.3, height: GV.maxSide * 0.05),
+                                         LSize: CGSize(width: GV.minSide * 0.3, height: GV.maxSide * 0.05))
+        } else if line == ShowMyWords {
+            button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.70, y: (GV.maxSide * 0.05)),
+                                         LPos: CGPoint(x: GV.maxSide * 0.70, y: (GV.maxSide * 0.03)),
+                                         PSize: CGSize(width: GV.minSide * 0.5, height: GV.maxSide * 0.05),
+                                         LSize: CGSize(width: GV.minSide * 0.5, height: GV.maxSide * 0.05))
         } else {
             button.plPosSize = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.5, y: (GV.maxSide * 0.8) - (line * GV.maxSide * 0.06)),
                                          LPos: CGPoint(x: GV.maxSide * 0.5, y: (GV.minSide * 0.8) - (line * GV.maxSide * 0.06)),
@@ -151,6 +156,7 @@ class PlaySearchingWords: SKScene {
 
     
     let GoBack: CGFloat = 1000
+    let ShowMyWords: CGFloat = 1001
     
     @objc private func goBack() {
         removeChildrenExceptTypes(from: gameLayer, types: [.Background])
@@ -433,6 +439,8 @@ class PlaySearchingWords: SKScene {
                     animateLetters(choosedWord, type: .WordIsOK)
                     mySounds.play(.OKWord)
                     setGameArrayToActualState()
+                    let title = GV.language.getText(.tcShowMyWords, values: String(getMyWordsCount()))
+                    showMyWordsButton.setButtonLabel(title: title, font: UIFont(name: GV.fontName, size: GV.minSide * 0.04)!)
                 } else {
                     animateLetters(choosedWord, type: .WordIsActiv)
                     clearTemporaryCells()
@@ -552,11 +560,12 @@ class PlaySearchingWords: SKScene {
     var positions = [ObjectSP]()
     var fixWordsHeader: MyLabel!
     var goBackButton: MyButton!
+    var showMyWordsButton: MyButton!
     var scoreLabel: MyLabel!
-    let fontSize: CGFloat = GV.onIpad ? 18 : 15
+    let fontSize: CGFloat = GV.onIpad ? 22 : 18
     public func playingGame() {
-        let sizeMultiplierIPhone: [CGFloat] = [0, 0, 0, 0, 0, 0.13, 0.11, 0.095, 0.08, 0.07, 0.07]
-        let sizeMultiplierIPad:   [CGFloat] = [0, 0, 0, 0, 0, 0.08, 0.075, 0.070, 0.055, 0.06, 0.05]
+        let sizeMultiplierIPhone: [CGFloat] = [0, 0, 0, 0, 0, 0.13, 0.11, 0.095, 0.09, 0.085, 0.08]
+        let sizeMultiplierIPad:   [CGFloat] = [0, 0, 0, 0, 0, 0.1, 0.1, 0.10, 0.09, 0.08, 0.07]
         removeChildrenExceptTypes(from: gameLayer, types: [.Background])
         let sizeMultiplier = GV.onIpad ? sizeMultiplierIPad : sizeMultiplierIPhone
         let blockSize = GV.minSide * sizeMultiplier[GV.size]
@@ -579,7 +588,7 @@ class PlaySearchingWords: SKScene {
         GV.playingGrid!.zPosition = 20
         gameLayer.addChild(GV.playingGrid!)
 
-        let fixWordsHeaderPosition = PLPosSize(PPos: CGPoint(x: gridPosition.PPos.x, y: gridPosition.PPos.y - GV.playingGrid!.plPosSize!.LSize!.height * 0.6),
+        let fixWordsHeaderPosition = PLPosSize(PPos: CGPoint(x: GV.minSide * 0.3, y: gridPosition.PPos.y - GV.playingGrid!.plPosSize!.PSize!.height * 0.55),
                                                LPos: CGPoint(x: GV.maxSide * 0.18, y: gameHeaderPosition.LPos.y))
         fixWordsHeader = MyLabel(text: GV.language.getText(.tcFixWords), position: fixWordsHeaderPosition, fontName: GV.headerFontName, fontSize: fontSize)
         gameLayer.addChild(fixWordsHeader)
@@ -606,6 +615,7 @@ class PlaySearchingWords: SKScene {
             firstWordPositionYL = ((fixWordsHeader.plPosSize?.LPos.y)!) - GV.maxSide * 0.04
             fillMandatoryWords()
             setGameArrayToActualState()
+            showMyWordsButton = addButtonPL(to: gameLayer, text: GV.language.getText(.tcShowMyWords, values: String(getMyWordsCount())), action: #selector(showMyWords), line: ShowMyWords)
         }
     }
     
@@ -614,6 +624,18 @@ class PlaySearchingWords: SKScene {
     var firstWordPositionYL: CGFloat = 0
     var possibleLineCountP: CGFloat = 0
     var possibleLineCountL: CGFloat = 0
+    
+    @objc private func showMyWords() {
+        
+    }
+    
+    private func getMyWordsCount()->Int {
+        var returnValue = 0
+        for label in myLabels {
+            returnValue += label.isHidden ? 1 : 0
+        }
+        return returnValue
+    }
 
     private func fillMandatoryWords() {
         let mandatoryWordsInDB = playedGame.wordsToFind.components(separatedBy: GV.outerSeparator)
@@ -701,7 +723,7 @@ class PlaySearchingWords: SKScene {
                             gameLayer.addChild(myWord)
                             myLabels.append(myWord)
                         } else {
-                            
+
                         }
                     }
                 }
@@ -716,6 +738,7 @@ class PlaySearchingWords: SKScene {
                         myWord.founded = true
                      }
                 } else {
+                    myWord.isHidden = true
                     myWord.fontColor = .red
                     GV.score += (myWord.usedWord!.word.count - 3) * 50
                 }
@@ -725,7 +748,6 @@ class PlaySearchingWords: SKScene {
         iterateGameArray(doing: {(col: Int, row: Int) in
             GV.gameArray[col][row].showConnections()
         })
-
     }
     
     private func iterateGameArray(doing: (_ col: Int, _ row: Int)->()) {

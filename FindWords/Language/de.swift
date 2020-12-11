@@ -44,4 +44,5 @@ let deDictionary: [TextConstants: String] = [
     .tcFinishGameMessage:       "Du hast das Spiel beendet. Ein neues Spiel beginnt.",
     .tcOK:                      "OK",
     .tcScore:                   "MMeine Punkte:%, beste Punkte:%",
+    .tcShowMyWords:             "Zeige meine Wörter (%)",
 ]

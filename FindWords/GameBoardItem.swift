@@ -102,8 +102,8 @@ class GameboardItem: SKSpriteNode {
 //        label.fontName = "KohinoorTelugu-Regular"
 //        label.fontName = "Baskerville"
 //        label.fontName = "ChalkboardSE-Light"
-//        label.fontName = "PingFangTC-Semibold"
-        label.fontName = GV.actPieceFont //"KohinoorBangla-Regular"
+        label.fontName = "PingFangTC-Semibold"
+//        label.fontName = GV.actPieceFont //"KohinoorBangla-Regular"
         label.fontColor = .black
         label.verticalAlignmentMode = .center
         label.fontSize = self.fontSize
