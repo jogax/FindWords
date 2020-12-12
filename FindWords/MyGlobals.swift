@@ -75,7 +75,6 @@ struct GV {
     static var minSide = CGFloat(0)
     static var maxSide = CGFloat(0)
     static var target: AnyObject?
-    static var score = 0
     static let questionMark = "?"
     static let mandatoryLabelInName = "Mandatory-Label"
     static let ownLabelInName = "Own-Label"

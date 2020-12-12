@@ -624,10 +624,87 @@ class PlaySearchingWords: SKScene {
     var firstWordPositionYL: CGFloat = 0
     var possibleLineCountP: CGFloat = 0
     var possibleLineCountL: CGFloat = 0
+    var showMyWordsTableView: TableView!
+    var showHintsTableView: TableView!
+
+    
+    enum TableType: Int {
+        case None = 0, ShowMyWords, ShowWordsOverPosition, ShowFoundedWords, ShowHints
+    }
+    private var tableType: TableType = .None
+
     
     @objc private func showMyWords() {
-        
+        showOwnWordsInTableView()
     }
+    private func showOwnWordsInTableView() {
+        tableType = .ShowMyWords
+        showMyWordsTableView = TableView()
+        var words: [MyFoundedWord]
+        var globalMaxLength = 0
+        (words, globalMaxLength, score) = getMyWordsForShow()
+        ownWordsForShow = WordsForShow(words: words)
+        calculateColumnWidths()
+        let suffix = " (\(GV.countOfWords)/\(ownWordsForShow!.countWords)/\(ownWordsForShow!.score))"
+        let headerText = (GV.language.getText(.tcCollectedOwnWords) + suffix)
+        let actWidth = max(title.width(font: myFont!), headerText.width(font: myFont!)) * 1.2
+
+        showOwnWordsTablSeView?.setDelegate(delegate: self)
+        showOwnWordsTablSeView?.register(CustomTableViewCell.self, forCellReuseIdentifier: "cell")
+        let origin = CGPoint(x: 0.5 * (self.frame.width - actWidth), y: self.frame.height * 0.08)
+        let lineHeight = title.height(font:myFont!)
+        let headerframeHeight = lineHeight * 2.3
+        var showingWordsHeight = CGFloat(ownWordsForShow!.words.count) * lineHeight
+        if showingWordsHeight  > self.frame.height * 0.8 {
+            var counter = CGFloat(ownWordsForShow!.words.count)
+            repeat {
+                counter -= 1
+                showingWordsHeight = lineHeight * counter
+            } while showingWordsHeight + headerframeHeight > self.frame.height * 0.8
+        }
+        if globalMaxLength < GV.language.getText(.tcWord).count {
+            globalMaxLength = GV.language.getText(.tcWord).count
+        }
+        let size = CGSize(width: actWidth, height: showingWordsHeight + headerframeHeight)
+        showOwnWordsTablSeView?.frame=CGRect(origin: origin, size: size)
+        self.showOwnWordsTablSeView?.reloadData()
+//        self.scene?.alpha = 0.2
+        self.scene?.view?.addSubview(showMyWordsTableView!)
+    }
+    struct MyFoundedWordsForTable {
+        var word = ""
+        var score = 0
+        var counter = 0
+    }
+    private func getMyWordsForShow()->([MyFoundedWordsForTable], Int, Int) {
+        var returnWords = [MyFoundedWordsForTable]()
+        var maxLength = 0
+        var returnScore = 0
+        for label in myLabels {
+            if !label.mandatory {
+                let word = label.usedWord!.word
+                if !returnWords.contains(where: {$0.word == word}) {
+                    let score = word.length * 50
+                    returnWords.append(MyFoundedWordsForTable(word: word, score: score, counter: 1))
+                    returnScore += score
+                    if maxLength < word.length {
+                        maxLength = word.length
+                    }
+                } else {
+                    for index in 0..<returnWords.count {
+                        if returnWords[index].word == word {
+                            returnWords[index].counter += 1
+                            returnScore -= returnWords[index].score
+                            returnWords[index].score *= 2
+                            returnScore += returnWords[index].score
+                        }
+                    }
+                }
+            }
+        }
+        return (returnWords, maxLength, returnScore)
+    }
+
     
     private func getMyWordsCount()->Int {
         var returnValue = 0
@@ -728,7 +805,6 @@ class PlaySearchingWords: SKScene {
                     }
                 }
             }
-            GV.score = 0
 
             for myWord in myLabels {
                 if myWord.mandatory {
@@ -740,10 +816,10 @@ class PlaySearchingWords: SKScene {
                 } else {
                     myWord.isHidden = true
                     myWord.fontColor = .red
-                    GV.score += (myWord.usedWord!.word.count - 3) * 50
                 }
             }
-            scoreLabel!.text = GV.language.getText(.tcScore, values: String(GV.score), String(0))
+            let (_, _, score) = getMyWordsForShow()
+            scoreLabel!.text = GV.language.getText(.tcScore, values: String(score), String(0))
         }
         iterateGameArray(doing: {(col: Int, row: Int) in
             GV.gameArray[col][row].showConnections()
