@@ -47,4 +47,10 @@ let enDictionary: [TextConstants: String] = [
     .tcOK:                      "OK",
     .tcScore:                   "My Score: %, Best Score: %",
     .tcShowMyWords:             "Show my words (%)",
+    .tcWord:                    "Word:",
+    .tcCount:                   "Cnt:",
+    .tcLength:                  "Len:",
+    .tcScoreTxt:                "Score:",
+    .tcCollectedOwnWords:       "My Words",
+    .tcWordsOverLetter:         "Words over the letter: \"%\"",
 ]

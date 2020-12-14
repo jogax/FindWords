@@ -13,6 +13,7 @@
 		D02A7BE7257E72E3001104A1 /* GrayOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE6257E72E3001104A1 /* GrayOctagon.png */; };
 		D02A7BE9257E72EB001104A1 /* GoldOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BE8257E72EB001104A1 /* GoldOctagon.png */; };
 		D02A7BEB257E7503001104A1 /* BlueOctagon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02A7BEA257E7503001104A1 /* BlueOctagon.png */; };
+		D03BCA232587A78300A9EBFC /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03BCA222587A78300A9EBFC /* CustomTableViewCell.swift */; };
 		D0656CF8258509AF00368A74 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0656CF7258509AF00368A74 /* TableView.swift */; };
 		D0722CFC256FCB4600B53468 /* Rosa Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D0722CFB256FCB4600B53468 /* Rosa Button.png */; };
 		D0722D02256FEAA900B53468 /* GradientNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0722D01256FEAA900B53468 /* GradientNode.swift */; };
@@ -116,6 +117,7 @@
 		D02A7BE6257E72E3001104A1 /* GrayOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayOctagon.png; sourceTree = "<group>"; };
 		D02A7BE8257E72EB001104A1 /* GoldOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GoldOctagon.png; sourceTree = "<group>"; };
 		D02A7BEA257E7503001104A1 /* BlueOctagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueOctagon.png; sourceTree = "<group>"; };
+		D03BCA222587A78300A9EBFC /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		D0656CF7258509AF00368A74 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		D0722CFB256FCB4600B53468 /* Rosa Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rosa Button.png"; sourceTree = "<group>"; };
 		D0722D01256FEAA900B53468 /* GradientNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNode.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				D0D0DB002566C52B00EF08A8 /* AppDelegate.swift */,
 				D01931C625714C8100D9B62F /* DrawImages.swift */,
 				D0D0DB042566C52B00EF08A8 /* Extensions.swift */,
+				D03BCA222587A78300A9EBFC /* CustomTableViewCell.swift */,
 				D0D0DB162566C52C00EF08A8 /* GameBoardItem.swift */,
 				D0722D01256FEAA900B53468 /* GradientNode.swift */,
 				D0D0DAFC2566C52B00EF08A8 /* GameMenuScene.swift */,
@@ -499,6 +502,7 @@
 				D0D0DB342566C52C00EF08A8 /* GameViewController.swift in Sources */,
 				D0722D02256FEAA900B53468 /* GradientNode.swift in Sources */,
 				D0D0DB322566C52C00EF08A8 /* MyAlertController.swift in Sources */,
+				D03BCA232587A78300A9EBFC /* CustomTableViewCell.swift in Sources */,
 				D0D0DB212566C52C00EF08A8 /* MyFoundedWord.swift in Sources */,
 				D0D0DB3A2566C52C00EF08A8 /* MyRandom.swift in Sources */,
 				D0D0DB252566C52C00EF08A8 /* MySounds.swift in Sources */,

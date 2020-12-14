@@ -45,4 +45,10 @@ let deDictionary: [TextConstants: String] = [
     .tcOK:                      "OK",
     .tcScore:                   "MMeine Punkte:%, beste Punkte:%",
     .tcShowMyWords:             "Zeige meine Wörter (%)",
+    .tcWord:                    "Wort:",
+    .tcCount:                   "Zhl:",
+    .tcLength:                  "Lng:",
+    .tcScoreTxt:                "Punkte:",
+    .tcCollectedOwnWords:       "Meine Wörter",
+    .tcWordsOverLetter:         "Wörter über den Buchstaben: \"%\"",
 ]

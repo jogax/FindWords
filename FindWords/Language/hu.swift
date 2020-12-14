@@ -45,4 +45,10 @@ let huDictionary: [TextConstants: String] = [
     .tcOK:                      "OK",
     .tcScore:                   "Saját pontszám:%, Legjobb pontszám:%",
     .tcShowMyWords:             "Mutasd a szavaimat (%)",
+    .tcWord:                    "Szó",
+    .tcCount:                   "Db.",
+    .tcLength:                  "Hossz.",
+    .tcScoreTxt:                "Pontszám",
+    .tcCollectedOwnWords:       "Szavaim",
+    .tcWordsOverLetter:         "Szavak a(z) \"%\" betü felett",
 ]
