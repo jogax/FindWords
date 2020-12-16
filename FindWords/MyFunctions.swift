@@ -57,6 +57,17 @@ func getLocalDate()->Date {
     return UTCDate + TimeInterval(NSTimeZone.system.secondsFromGMT(for: UTCDate))
 }
 
+public func printFontNames() {
+    let familyNames = UIFont.familyNames
+    for family in familyNames {
+    print("Family name " + family)
+    let fontNames = UIFont.fontNames(forFamilyName: family)
+    for font in fontNames {
+    print("    Font name: " + font)
+        }
+    }
+}
+
 public func printGameArray() {
     let line = "____________________________________________"
     for row in 0..<GV.size {
@@ -384,16 +395,6 @@ func removeChildrenExceptTypes(from: SKNode, types: [SKNodeSubclassType]) {
 //    }
 //}
 
-public func printFontNames() {
-    let familyNames = UIFont.familyNames
-    for family in familyNames {
-    print("Family name " + family)
-    let fontNames = UIFont.fontNames(forFamilyName: family)
-    for font in fontNames {
-    print("    Font name: " + font)
-        }
-    }
-}
 
 public func generateNewRealm(oldRealmName: String, newRealmName: String) {
     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!

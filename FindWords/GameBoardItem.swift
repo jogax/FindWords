@@ -469,7 +469,7 @@ class GameboardItem: SKSpriteNode {
 //        child.size = self.size * 1.1
         child.zPosition = self.zPosition - 10
         child.name = "Connection"
-        let main = self
+//        let main = self
         child.position = self.position
         GV.playingGrid!.addChild(child)
 //        self.addChild(child)

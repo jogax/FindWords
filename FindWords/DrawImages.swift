@@ -35,10 +35,7 @@ class DrawImages {
     }
     static func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
         let context = CIContext(options: nil)
-        if context != nil {
-            return context.createCGImage(inputImage, from: inputImage.extent)
-        }
-        return nil
+        return context.createCGImage(inputImage, from: inputImage.extent)
     }
     
     struct MySize: Hashable {

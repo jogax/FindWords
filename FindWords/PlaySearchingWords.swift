@@ -36,8 +36,8 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
         switch tableType {
         case .ShowMyWords:
             return myWordsForShow.countWords
-//        case .ShowWordsOverPosition:
-//            return wordList.count
+        case .ShowWordsOverPosition:
+            return wordList.countWords
 //        case .ShowFoundedWords:
 //            return listOfFoundedWords.count
 //        case .ShowHints:
@@ -66,11 +66,12 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
             cell.addColumn(text: String(wordForShow.counter).fixLength(length: lengthOfCnt), color: color) // Counter column
             cell.addColumn(text: String(wordForShow.word.length).fixLength(length: lengthOfLength))
             cell.addColumn(text: String(wordForShow.score).fixLength(length: lengthOfScore), color: color) // Score column
-//        case .ShowWordsOverPosition:
-//            cell.addColumn(text: "  " + wordList[indexPath.row].word.fixLength(length: lengthOfWord + 2, leadingBlanks: false)) // WordColumn
-//            cell.addColumn(text: String(1).fixLength(length: lengthOfCnt - 1), color: color)
-//            cell.addColumn(text: String(wordList[indexPath.row].word.length).fixLength(length: lengthOfLength - 1))
-//            cell.addColumn(text: String(wordList[indexPath.row].score).fixLength(length: lengthOfScore + 1), color: color)
+        case .ShowWordsOverPosition:
+            let wordForShow = wordList!.words[indexPath.row]
+            cell.addColumn(text: "  " + wordForShow.word.fixLength(length: lengthOfWord + 2, leadingBlanks: false)) // WordColumn
+            cell.addColumn(text: String(wordForShow.counter).fixLength(length: lengthOfCnt - 1), color: color)
+            cell.addColumn(text: String(wordForShow.word.length).fixLength(length: lengthOfLength - 1))
+            cell.addColumn(text: String(wordForShow.score).fixLength(length: lengthOfScore + 1), color: color)
 //        case .ShowFoundedWords:
 //            cell.addColumn(text: "  " + listOfFoundedWords[indexPath.row].word.uppercased().fixLength(length: lengthOfWord, leadingBlanks: false), color: myLightBlue)
 //            cell.addColumn(text: String(listOfFoundedWords[indexPath.row].length).fixLength(length: lengthOfLength), color: myLightBlue)
@@ -109,14 +110,13 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
     func fillHeaderView(tableView: UITableView, section: Int) -> UIView {
         let textColor:UIColor = .black
         var text: String = ""
-        var text0: String = ""
+        let text0: String = ""
         let lineHeight = title.height(font: myTableFont)
         let yPos0: CGFloat = 0
         var yPos1: CGFloat = 0
         var yPos2: CGFloat = lineHeight
         let view = UIView()
         var width:CGFloat = title.width(font: myTableFont)
-        var length: Int = 0
         let widthOfChar = "A".width(font: myTableFont)
         let lengthOfTableView = Int(tableView.frame.width / widthOfChar) + 1
         switch tableType {
@@ -127,7 +127,7 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
                 width = text.width(font: myTableFont)
             }
         case .ShowWordsOverPosition:
-            text = GV.language.getText(.tcWordsOverLetter, values: "?").fixLength(length: title.length, center: true)
+            text = GV.language.getText(.tcWordsOverLetter, values: choosedWord.usedLetters.first!.letter).fixLength(length: title.length, center: true)
 //        case .ShowFoundedWords:
 //            let header0 = GV.language.getText(.tcSearchingWord, values: searchingWord)
 //            let header1 = GV.language.getText(.tcShowWordlistHeader, values: String(listOfFoundedWords.count))
@@ -444,8 +444,8 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
 //            showFoundedWordsTableView!.removeFromSuperview()
 //        case .ShowHints:
 //            showHintsTableView!.removeFromSuperview()
-//        case .ShowWordsOverPosition:
-//            showWordsOverPositionTableView!.removeFromSuperview()
+        case .ShowWordsOverPosition:
+            showWordsOverPositionTableView!.removeFromSuperview()
         default:
             break
         }
@@ -509,6 +509,9 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
         iterateGameArray(doing: {(col: Int, row: Int) in
             if GV.gameArray[col][row].status == .Temporary {
                 GV.gameArray[col][row].setStatus(toStatus: GV.gameArray[col][row].origStatus)
+            }
+            if GV.gameArray[col][row].status == .GoldStatus {
+                GV.gameArray[col][row].setStatus(toStatus: .WholeWord)
             }
         })
     }
@@ -630,6 +633,9 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
             choosedWord = UsedWord()
         } else {
             clearTemporaryCells()
+            if choosedWord.count == 1 {
+                showWordsOverPosition()
+            }
         }
 //        var countGreenCells = 0
         var countGreenWords = 0
@@ -640,6 +646,80 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
             congratulation()
         }
     }
+    
+    private func getWordsOverPosition()->([MyFoundedWordsForTable], Int) {
+        func setGoldLetters(usedLetters: [UsedLetter]) {
+            for letter in usedLetters {
+                GV.gameArray[letter.col][letter.row].setStatus(toStatus: .GoldStatus)
+            }
+        }
+        var returnWords = [MyFoundedWordsForTable]()
+        var maxLength = 0
+        var returnScore = 0
+        let letter = choosedWord.usedLetters.first!
+        for label in myLabels {
+            if !label.mandatory || label.founded {
+                let word = label.usedWord!.word + (label.founded ? "*" : "")
+                for actLetter in label.usedWord!.usedLetters {
+                    if actLetter == letter {
+                        if !returnWords.contains(where: {$0.word == word}) {
+                            returnWords.append(MyFoundedWordsForTable(word: word, score: 0, counter: 1))
+                        } else {
+                            for index in 0..<returnWords.count {
+                                if returnWords[index].word == word {
+                                    returnWords[index].counter += 1
+                                    returnScore -= returnWords[index].score
+                                    returnWords[index].score *= 2
+                                    returnScore += returnWords[index].score
+                                }
+                            }
+                        }
+                        setGoldLetters(usedLetters: label.usedWord!.usedLetters)
+                    }
+                }
+            }
+        }
+        returnWords = returnWords.sorted(by: {$0.word.length > $1.word.length ||
+                                              $0.word.length == $1.word.length && $0.counter > $1.counter
+        })
+        return (returnWords, maxLength)
+
+    }
+    
+    private func showWordsOverPosition() {
+        showWordsOverPositionTableView = TableView()
+
+        tableType = .ShowWordsOverPosition
+        let (words, maxLength) = getWordsOverPosition()
+        wordList = WordsForShow(words: words)
+        calculateColumnWidths()
+        let suffix = " (\(wordList.countWords))"
+        let headerText = (GV.language.getText(.tcWordsOverLetter, values: choosedWord.usedLetters.first!.letter) + suffix)
+        let actWidth = max(title.width(font: myTableFont), headerText.width(font: myTableFont)) * 1.2
+
+        showWordsOverPositionTableView.setDelegate(delegate: self)
+        showWordsOverPositionTableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "cell")
+        let origin = CGPoint(x: 0.5 * (self.frame.width - actWidth), y: self.frame.height * 0.08)
+        let lineHeight = title.height(font:myTableFont)
+        let headerframeHeight = lineHeight * 2.3
+        var showingWordsHeight = CGFloat(wordList!.words.count + 1) * lineHeight
+        if showingWordsHeight  > self.frame.height * 0.8 {
+            var counter = CGFloat(wordList!.words.count)
+            repeat {
+                counter -= 1
+                showingWordsHeight = lineHeight * counter
+            } while showingWordsHeight + headerframeHeight > self.frame.height * 0.8
+        }
+        if globalMaxLength < GV.language.getText(.tcWord).count {
+            globalMaxLength = GV.language.getText(.tcWord).count
+        }
+        let size = CGSize(width: actWidth, height: showingWordsHeight + headerframeHeight)
+        showWordsOverPositionTableView?.frame=CGRect(origin: origin, size: size)
+        self.showWordsOverPositionTableView?.reloadData()
+//        self.scene?.alpha = 0.2
+        self.scene?.view?.addSubview(showWordsOverPositionTableView!)
+    }
+
     
     private func congratulation() {
         try! playedGamesRealm?.safeWrite {
@@ -801,7 +881,7 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
     var possibleLineCountP: CGFloat = 0
     var possibleLineCountL: CGFloat = 0
     var showMyWordsTableView: TableView!
-    var showHintsTableView: TableView!
+    var showWordsOverPositionTableView: TableView!
 
     
     enum TableType: Int {
@@ -809,6 +889,7 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
     }
     private var tableType: TableType = .None
     private var myWordsForShow: WordsForShow!
+    private var wordList: WordsForShow!
 
     struct WordsForShow {
         var words = [MyFoundedWordsForTable]()
@@ -830,7 +911,7 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
     private var lengthOfCnt = 0
     private var lengthOfLength = 0
     private var lengthOfScore = 0
-    private let myTableFont  = UIFont(name: "TimesNewRomanPSMT", size: GV.onIpad ? 15 : 15)!
+    private let myTableFont  = UIFont(name: "CourierNewPS-BoldMT", size: GV.onIpad ? 18 : 18)!
     
     private func calculateColumnWidths(showCount: Bool = true) {
         title = ""
@@ -861,8 +942,8 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
 
         tableType = .ShowMyWords
         var words: [MyFoundedWordsForTable]
-        var score = 0
-        (words, globalMaxLength, score) = getMyWordsForShow()
+//        var score = 0
+        (words, globalMaxLength, _) = getMyWordsForShow()
         myWordsForShow = WordsForShow(words: words)
         calculateColumnWidths()
         let suffix = " (\(myWordsForShow.countWords)/\(myWordsForShow.countAllWords)/\(myWordsForShow.score))"
@@ -922,6 +1003,9 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
                 }
             }
         }
+        returnWords = returnWords.sorted(by: {$0.word.length > $1.word.length ||
+                                              $0.word.length == $1.word.length && $0.counter > $1.counter
+        })
         return (returnWords, maxLength, returnScore)
     }
 

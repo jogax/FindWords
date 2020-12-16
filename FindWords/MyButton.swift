@@ -198,17 +198,17 @@ class MyButton: SKSpriteNode {
         func drawLinearGradient(
             context: CGContext, rect: CGRect, startColor: CGColor, endColor: CGColor) {
             // 1
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
+//            let colorSpace = CGColorSpaceCreateDeviceRGB()
 
             // 2
-            let colorLocations: [CGFloat] = [0.0, 1.0]
+//            let colorLocations: [CGFloat] = [0.0, 1.0]
 
             // 3
-            let colors: CFArray = [startColor, endColor] as CFArray
+//            let colors: CFArray = [startColor, endColor] as CFArray
 
             // 4
-            let gradient = CGGradient(
-                colorsSpace: colorSpace, colors: colors, locations: colorLocations)!
+//            let gradient = CGGradient(
+//                colorsSpace: colorSpace, colors: colors, locations: colorLocations)!
 
             // More to come...
         }
