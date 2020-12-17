@@ -89,7 +89,7 @@ class GameboardItem: SKSpriteNode {
 
     public var letter = emptyLetter
     private var fontSize: CGFloat = 0
-    let countWordsLabelFontSize: CGFloat = GV.onIpad ? 18 : 15
+    let countWordsLabelFontSize: CGFloat = GV.onIpad ? 15 : 15
     init() {
         label = SKLabelNode()
         // Call the init
@@ -99,10 +99,10 @@ class GameboardItem: SKSpriteNode {
         self.blockSize = GV.blockSize
         let texture = SKTexture(imageNamed: "whiteSprite")
         super.init(texture: texture, color: .white, size: CGSize(width: blockSize, height: blockSize))
-//        label.fontName = "KohinoorTelugu-Regular"
+        label.fontName = "KohinoorTelugu-Regular"
 //        label.fontName = "Baskerville"
 //        label.fontName = "ChalkboardSE-Light"
-        label.fontName = "PingFangTC-Semibold"
+//        label.fontName = "PingFangTC-Semibold"
 //        label.fontName = GV.actPieceFont //"KohinoorBangla-Regular"
         label.fontColor = .black
         label.verticalAlignmentMode = .center

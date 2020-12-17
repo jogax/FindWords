@@ -62,9 +62,10 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
         switch tableType {
         case .ShowMyWords:
             let wordForShow = myWordsForShow!.words[indexPath.row]
+//            let length = wordForShow.word.lastChar() == "*" ? wordForShow.word.count - 1 : wordForShow.word.count
             cell.addColumn(text: "  " + wordForShow.word.fixLength(length: lengthOfWord, leadingBlanks: false)) // WordColumn
             cell.addColumn(text: String(wordForShow.counter).fixLength(length: lengthOfCnt), color: color) // Counter column
-            cell.addColumn(text: String(wordForShow.word.length).fixLength(length: lengthOfLength))
+            cell.addColumn(text: String(wordForShow.length).fixLength(length: lengthOfLength))
             cell.addColumn(text: String(wordForShow.score).fixLength(length: lengthOfScore), color: color) // Score column
         case .ShowWordsOverPosition:
             let wordForShow = wordList!.words[indexPath.row]
@@ -974,6 +975,7 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
     }
     struct MyFoundedWordsForTable {
         var word = ""
+        var length = 0
         var score = 0
         var counter = 0
     }
@@ -982,11 +984,12 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
         var maxLength = 0
         var returnScore = 0
         for label in myLabels {
-            if !label.mandatory {
-                let word = label.usedWord!.word
+            if !label.mandatory || label.founded {
+                let word = label.usedWord!.word  + (label.founded ? "*" : "")
+                let length = label.usedWord!.word.count
                 if !returnWords.contains(where: {$0.word == word}) {
-                    let score = word.length * 50
-                    returnWords.append(MyFoundedWordsForTable(word: word, score: score, counter: 1))
+                    let score = label.founded ? 0 : word.length * 50
+                    returnWords.append(MyFoundedWordsForTable(word: word, length: length, score: score, counter: 1))
                     returnScore += score
                     if maxLength < word.length {
                         maxLength = word.length
@@ -1003,8 +1006,8 @@ class PlaySearchingWords: SKScene, TableViewDelegate {
                 }
             }
         }
-        returnWords = returnWords.sorted(by: {$0.word.length > $1.word.length ||
-                                              $0.word.length == $1.word.length && $0.counter > $1.counter
+            returnWords = returnWords.sorted(by:{$0.length > $1.length ||
+                                                ($0.length == $1.length && ($0.counter > $1.counter || $0.word < $1.word))
         })
         return (returnWords, maxLength, returnScore)
     }
