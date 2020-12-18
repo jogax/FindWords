@@ -139,7 +139,7 @@ class GenerateGameArray {
         for col in 0..<size {
             for row in 0..<size {
                 GV.gameArray[col][row].position = grid!.gridPosition(col: col, row: row) //+
-                GV.gameArray[col][row].name = "GBD/\(col)/\(row)"
+//                GV.gameArray[col][row].name = "GBD/\(col)/\(row)"
                 GV.gameArray[col][row].setNeighbor(direction: .Down, neighbor: row == size - 1 ? nil : GV.gameArray[col][row + 1])
                 GV.gameArray[col][row].setNeighbor(direction: .Up, neighbor: row == 0 ? nil : GV.gameArray[col][row - 1])
                 GV.gameArray[col][row].setNeighbor(direction: .Right, neighbor: col == size - 1 ? nil : GV.gameArray[col + 1][row])
@@ -148,6 +148,12 @@ class GenerateGameArray {
                 GV.gameArray[col][row].row = row
                 grid!.addChild(GV.gameArray[col][row])
                 setCountConnections(col: col, row: row)
+                let dummy = SKSpriteNode()
+                let value = 0.6 * GV.blockSize
+                dummy.size = CGSize(width: value, height: value)
+                dummy.position = grid!.gridPosition(col: col, row: row)
+                dummy.name = "GBD/\(col)/\(row)"
+                grid!.addChild(dummy)
             }
         }
         generating()
